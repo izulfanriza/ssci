@@ -35,7 +35,7 @@
           @if(Auth::user()->role=='admin')
           <li class="nav-item">
             <a href="{{ url('tryout/') }}" class="nav-link {{ Request::path() == 'tryout' || Request::is('tryout/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-calendar"></i>
               <p>
                 Data Tryout
               </p>
@@ -78,6 +78,14 @@
               <i class="nav-icon fas fa-graduation-cap"></i>
               <p>
                 Jurusan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('matapelajaran/') }}" class="nav-link {{ Request::path() == 'matapelajaran' || Request::is('matapelajaran/*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Mata Pelajaran
               </p>
             </a>
           </li>

@@ -43,13 +43,13 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="role">Prioritas<span class="text-danger">*</span></label>
+                            <label for="prioritas">Prioritas<span class="text-danger">*</span></label>
                             <select class="form-control" type="select" name="prioritas" value="{{ old('prioritas') }}">
                                 <option disabled selected>--Pilih Prioritas--</option>
                                 <option value="1" <?php echo old('prioritas') == '1' ? 'selected' : '' ;?>>1 (Satu)</option>
                                 <option value="2" <?php echo old('prioritas') == '2' ? 'selected' : '' ;?>>2 (Dua)</option>
                             </select>
-                            @error('role')
+                            @error('prioritas')
                                 <span class="error">
                                     <strong>{{ $message }}</strong>
                                 </span>

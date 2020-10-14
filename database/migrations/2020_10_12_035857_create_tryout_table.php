@@ -15,6 +15,7 @@ class CreateTryoutTable extends Migration
     {
         Schema::create('tryouts', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->date('tanggal');
             $table->time('pukul');
             $table->string('tanggal_indo');

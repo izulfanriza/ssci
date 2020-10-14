@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tryout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Validator;
+use Alert;
 
 class TryoutController extends Controller
 {
@@ -14,7 +18,10 @@ class TryoutController extends Controller
      */
     public function index()
     {
-        return view('tryout.index');
+        $tryouts = Tryout::all();
+
+        return view('tryout.index',array())
+        ->with('tryouts',$tryouts);
     }
 
     /**
@@ -24,7 +31,7 @@ class TryoutController extends Controller
      */
     public function create()
     {
-        //
+        return view('tryout.create');
     }
 
     /**
@@ -35,7 +42,9 @@ class TryoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tanggal = date('Y-m-d', strtotime($request->tanggal));
+        $pukul = date("H:i", strtotime($request->pukul));
+        return $tanggal.' '.$pukul;
     }
 
     /**
