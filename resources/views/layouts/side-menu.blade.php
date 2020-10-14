@@ -37,15 +37,7 @@
             <a href="{{ url('tryout/') }}" class="nav-link {{ Request::path() == 'tryout' || Request::is('tryout/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Tryout
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('hasiltryout/') }}" class="nav-link {{ Request::path() == 'hasiltryout' || Request::is('hasiltryout/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-bullhorn"></i>
-              <p>
-                Hasil Tryout
+                Data Tryout
               </p>
             </a>
           </li>
@@ -95,7 +87,7 @@
             <a href="{{ url('hasiltryoutsiswa/') }}" class="nav-link {{ Request::path() == 'hasiltryoutsiswa' || Request::is('hasiltryoutsiswa/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-clipboard"></i>
               <p>
-                Hasil Tryout Saya
+                Data Tryout Saya
               </p>
             </a>
           </li>
