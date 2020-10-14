@@ -175,6 +175,8 @@ class JurusanController extends Controller
      */
     public function destroy(Jurusan $jurusan)
     {
-        //
+        Jurusan::find($jurusan->id)->delete();
+        Alert::success('Success', 'Berhasil Menghapus Data');
+        return back();
     }
 }
