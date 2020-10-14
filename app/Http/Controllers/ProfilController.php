@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Validator;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
+use Alert;
 
 class ProfilController extends Controller
 {
@@ -75,9 +75,39 @@ class ProfilController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $profil)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',  'unique:users,email,'.$profil->id],
+            'no_hp' => ['required', 'string', 'max:20'],
+            'alamat' => ['string', 'max:255'],
+        ]);
+        $user = User::find($profil->id);
+        if ($validator->fails()) {
+            return redirect('profil/')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->no_hp = $request['no_hp'];
+        $user->alamat = $request['alamat'];
+        if ($request['password'] != '') {
+            $validator = Validator::make($request->all(), [
+                'password' => ['string', 'min:8', 'confirmed'],
+            ]);
+            if ($validator->fails()) {
+                return redirect('profil')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $user->password = Hash::make($request['password']);
+        }
+        $user->save();
+
+        Alert::success('Success', 'Berhasil Mengubah Data');
+        return redirect('profil');
     }
 
     /**

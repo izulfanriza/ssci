@@ -107,7 +107,6 @@ class UserController extends Controller
             'no_hp' => ['required', 'string', 'max:20'],
             'role' => ['string', 'max:255'],
             'alamat' => ['string', 'max:255'],
-            'password' => ['confirmed'],
         ]);
         $user = User::find($user->id);
         if ($validator->fails()) {
