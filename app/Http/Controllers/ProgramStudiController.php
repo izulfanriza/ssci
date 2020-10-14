@@ -96,7 +96,7 @@ class ProgramStudiController extends Controller
             'kode' => ['required', 'string', 'max:255', 'unique:program_studis,kode,'.$programstudi->id],
             'nama' => ['required', 'string', 'max:255'],
         ]);
-        $programstudi = programstudi::find($programstudi->id);
+        $programstudi = Programstudi::find($programstudi->id);
         if ($validator->fails()) {
             return redirect('programstudi/'.$programstudi->id.'/edit')
                 ->withErrors($validator)

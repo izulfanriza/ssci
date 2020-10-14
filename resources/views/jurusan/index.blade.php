@@ -1,64 +1,90 @@
 @extends('layouts.main-layout', ['page_title' => 'Jurusan', 'breadcrumb' => ['Jurusan'],])
 
+@section('custom_css')
+@include('components.css.datatable')
+@endsection
+
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-
-      <div class="card card-primary card-outline">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div><!-- /.card -->
-    </div>
-    <!-- /.col-md-6 -->
-    <div class="col-lg-6">
+    <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="m-0">Featured</h5>
+          <h3 class="card-title">Tabel Data Jurusan</h3>
+          <div class="card-tools">
+            <a type="button" href="{{ route('jurusan.create') }}" class="btn btn-block btn-success">Tambah Jurusan</a>
+          </div>
         </div>
+        <!-- /.card-header -->
         <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
-
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <table id="datatable" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Nilai Perhitungan</th>
+              <th>Prioritas</th>
+              <th>Kuota</th>
+              <th>Tahun</th>
+              <th>Universitas</th>
+              <th>Cluster</th>
+              <th>Program Studi</th>
+              <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($jurusans as $jurusan)
+            <tr>
+              <td>{{ $jurusan->nama }}</td>
+              <td>{{ $jurusan->nilai_perhitungan }}</td>
+              <td>{{ $jurusan->prioritas }}</td>
+              <td>{{ $jurusan->kuota }}</td>
+              <td>{{ $jurusan->tahun }}</td>
+              <td>{{ $jurusan->universitas_kode }}</td>
+              <td>{{ $jurusan->cluster_kode }}</td>
+              <td>{{ $jurusan->program_studi_kode }}</td>
+              <td>
+                <a href="{{ route('jurusan.edit', $jurusan->id) }}">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                </a>
+                <form style="display: inline-block;" action="{{ route('jurusan.destroy', $jurusan->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this data?')">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Nama</th>
+                <th>Nilai Perhitungan</th>
+                <th>Prioritas</th>
+                <th>Kuota</th>
+                <th>Tahun</th>
+                <th>Universitas</th>
+                <th>Cluster</th>
+                <th>Program Studi</th>
+                <th>Aksi</th>
+              </tr>
+            </tfoot>
+          </table>
         </div>
+        <!-- /.card-body -->
       </div>
-
-      <div class="card card-primary card-outline">
-        <div class="card-header">
-          <h5 class="m-0">Featured</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
-
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
+      <!-- /.card -->
     </div>
-    <!-- /.col-md-6 -->
-  </div>
-  <!-- /.row -->
+</div>
+<!-- /.row -->
 
-  @endsection
+@endsection
+
+@section('custom_script')
+@include('components.js.datatable')
+@endsection

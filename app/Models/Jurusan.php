@@ -14,6 +14,7 @@ class Jurusan extends Model
      *
      * @var array
      */
+    protected $table = 'jurusans';
     protected $fillable = [
         'kode',
         'nama',
