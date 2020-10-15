@@ -17,10 +17,10 @@ class CreatePesertaTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nomor');
-            $table->integer('skor_tka');
-            $table->integer('rank_tka');
-            $table->integer('skor_tps');
-            $table->integer('rank_tps');
+            $table->string('skor_tka');
+            $table->string('rank_tka');
+            $table->string('skor_tps');
+            $table->string('rank_tps');
             $table->string('tryout_id');
             $table->string('user_id')->nullable();
             $table->timestamps();

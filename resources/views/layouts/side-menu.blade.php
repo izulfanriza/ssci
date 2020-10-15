@@ -34,7 +34,7 @@
           </li>
           @if(Auth::user()->role=='admin')
           <li class="nav-item">
-            <a href="{{ url('tryout/') }}" class="nav-link {{ Request::path() == 'tryout' || Request::is('tryout/*') ? 'active' : '' }}">
+            <a href="{{ url('tryout/') }}" class="nav-link {{ Request::path() == 'tryout' || Request::is('tryout/*') || Request::path() == 'peserta-upload' || Request::is('peserta-upload/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar"></i>
               <p>
                 Data Tryout

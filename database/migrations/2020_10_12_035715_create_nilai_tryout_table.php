@@ -15,10 +15,10 @@ class CreateNilaiTryoutTable extends Migration
     {
         Schema::create('nilai_tryouts', function (Blueprint $table) {
             $table->id();
-            $table->integer('benar');
-            $table->integer('salah');
-            $table->integer('kosong');
-            $table->integer('skor');
+            $table->string('benar');
+            $table->string('salah');
+            $table->string('kosong');
+            $table->string('skor');
             $table->string('mapel_kode');
             $table->string('peserta_id');
             $table->timestamps();

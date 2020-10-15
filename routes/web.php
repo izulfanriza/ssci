@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TryoutController;
+use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\HasilTryoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UniversitasController;
@@ -40,6 +41,12 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 // role admin
 Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 	Route::resource('tryout', TryoutController::class);
+	Route::resource('peserta', PesertaController::class);
+	Route::get('peserta-download', function () {
+		return response()->download(storage_path('app/files/template_peserta.xlsx'));
+	})->name('peserta.download');
+	Route::get('peserta-upload/{tryout_id}', [PesertaController::class, 'upload'])->name('peserta.upload');
+	Route::post('peserta-upload', [PesertaController::class, 'goUpload'])->name('peserta.goupload');
 	Route::resource('hasiltryout', HasilTryoutController::class);
 	Route::resource('user', UserController::class);
 	Route::resource('universitas', UniversitasController::class);
