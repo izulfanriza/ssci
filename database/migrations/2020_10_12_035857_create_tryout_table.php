@@ -16,10 +16,13 @@ class CreateTryoutTable extends Migration
         Schema::create('tryouts', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->date('tanggal');
-            $table->time('pukul');
-            $table->string('tanggal_indo');
-            $table->enum('jenis', ['saintek', 'soshum', 'tps']);
+            $table->date('tanggal_tka');
+            $table->string('tanggal_indo_tka');
+            $table->time('pukul_tka');
+            $table->date('tanggal_tps');
+            $table->string('tanggal_indo_tps');
+            $table->time('pukul_tps');
+            $table->enum('jenis', ['saintek', 'soshum']);
             $table->timestamps();
         });
     }

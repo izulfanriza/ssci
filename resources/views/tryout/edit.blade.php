@@ -1,4 +1,4 @@
-@extends('layouts.main-layout', ['page_title' => 'Tambah Tryout', 'breadcrumb' => ['Tryout', 'Tambah Tryout'],])
+@extends('layouts.main-layout', ['page_title' => 'Edit Tryout', 'breadcrumb' => ['Tryout', 'Edit Tryout'],])
 
 @section('custom_css')
 <!-- datepicker -->
@@ -14,17 +14,19 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Tambah Data Tryout</h3>
+          <h3 class="card-title">Edit Data Tryout</h3>
         </div>
         <!-- /.card-header -->
         
-        <form method="POST" action="{{ route('tryout.store') }}" class="form-horizontal">
+        <form method="POST" action="{{ route('tryout.update', $tryout) }}" class="form-horizontal">
             <div class="card-body">
+                @csrf
+                @method('PATCH')
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nama">Nama Tryout<span class="text-danger">*</span></label>
-                            <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama') }}" placeholder="Masukan Nama Tryout" required="required">
+                            <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama', $tryout->nama) }}" placeholder="Masukan Nama Tryout" required="required">
                             @error('nama')
                                 <span class="error">
                                     <strong>{{ $message }}</strong>
@@ -37,8 +39,8 @@
                             <label for="jenis">Jenis<span class="text-danger">*</span></label>
                             <select class="form-control" type="select" name="jenis" value="{{ old('jenis') }}">
                                 <option disabled selected>--Pilih Jenis--</option>
-                                <option value="saintek" <?php echo old('jenis') == 'saintek' ? 'selected' : '' ;?>>SAINTEK</option>
-                                <option value="soshum" <?php echo old('jenis') == 'soshum' ? 'selected' : '' ;?>>SOSHUM</option>
+                                <option value="saintek" <?php echo old('jenis', $tryout->jenis) == 'saintek' ? 'selected' : '' ;?>>SAINTEK</option>
+                                <option value="soshum" <?php echo old('jenis', $tryout->jenis) == 'soshum' ? 'selected' : '' ;?>>SOSHUM</option>
                             </select>
                             @error('jenis')
                                 <span class="error">
@@ -58,7 +60,7 @@
                                     <i class="far fa-calendar-alt"></i>
                                   </span>
                                 </div>
-                                <input type="text" class="form-control float-right" id="tanggal_tka" name="tanggal_tka" required="required">
+                                <input type="text" class="form-control float-right" value="{{ old('tanggal_tka',$tanggal_tka) }}" id="tanggal_tka" name="tanggal_tka" required="required">
                             </div>
                             @error('tanggal_tka')
                                 <span class="error">
@@ -77,7 +79,7 @@
                                             <i class="fa fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control timepicker" name="pukul_tka" required="required">
+                                    <input type="text" class="form-control timepicker" value="{{ old('pukul_tka',$pukul_tka) }}" name="pukul_tka" required="required">
                                 </div>
                             </div>
                             @error('pukul_tka')
@@ -98,7 +100,7 @@
                                     <i class="far fa-calendar-alt"></i>
                                   </span>
                                 </div>
-                                <input type="text" class="form-control float-right" id="tanggal_tps" name="tanggal_tps" required="required">
+                                <input type="text" class="form-control float-right" value="{{ old('tanggal_tps',$tanggal_tps) }}" id="tanggal_tps" name="tanggal_tps" required="required">
                             </div>
                             @error('tanggal_tps')
                                 <span class="error">
@@ -117,7 +119,7 @@
                                             <i class="fa fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control timepicker" name="pukul_tps" required="required">
+                                    <input type="text" class="form-control timepicker" value="{{ old('pukul_tps',$pukul_tps) }}" name="pukul_tps" required="required">
                                 </div>
                             </div>
                             @error('pukul_tps')

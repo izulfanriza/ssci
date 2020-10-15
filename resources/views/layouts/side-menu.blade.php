@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('matapelajaran/') }}" class="nav-link {{ Request::path() == 'matapelajaran' || Request::is('matapelajaran/*') ? 'active' : '' }}">
+            <a href="{{ url('mapel/') }}" class="nav-link {{ Request::path() == 'mapel' || Request::is('mapel/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Mata Pelajaran

@@ -14,6 +14,7 @@ class Mapel extends Model
      *
      * @var array
      */
+    protected $table = 'mapels';
     protected $fillable = [
         'kode',
         'nama',

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Mapel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Validator;
+use Alert;
 
 class MapelController extends Controller
 {
@@ -14,7 +18,10 @@ class MapelController extends Controller
      */
     public function index()
     {
-        return view('mapel.index');
+        $mapels = Mapel::all();
+
+        return view('mapel.index',array())
+        ->with('mapels',$mapels);
     }
 
     /**
@@ -24,7 +31,7 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //
+        return view('mapel.create');
     }
 
     /**
@@ -35,7 +42,22 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode' => ['required', 'string', 'max:255', 'unique:mapels'],
+            'nama' => ['required', 'string', 'max:255'],
+        ]);
+        if ($validator->fails()) {
+            return redirect('mapel/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $mapel = new Mapel;
+        $mapel->kode = $request['kode'];
+        $mapel->nama = $request['nama'];
+        $mapel->save();
+
+        Alert::success('Success', 'Berhasil Menambah Data');
+        return redirect('mapel');
     }
 
     /**
@@ -57,7 +79,8 @@ class MapelController extends Controller
      */
     public function edit(Mapel $mapel)
     {
-        //
+        $mapel = Mapel::find($mapel->id);
+        return view('mapel.edit',array())->with('mapel',$mapel);
     }
 
     /**
@@ -69,7 +92,21 @@ class MapelController extends Controller
      */
     public function update(Request $request, Mapel $mapel)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode' => ['required', 'string', 'max:255', 'unique:mapels,kode,'.$mapel->id],
+            'nama' => ['required', 'string', 'max:255'],
+        ]);
+        $mapel = Mapel::find($mapel->id);
+        if ($validator->fails()) {
+            return redirect('mapel/'.$mapel->id.'/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $mapel->kode = $request['kode'];
+        $mapel->nama = $request['nama'];
+        $mapel->save();
+        Alert::success('Success', 'Berhasil Mengubah Data');
+        return redirect('mapel/'.$mapel->id.'/edit');
     }
 
     /**
@@ -80,6 +117,8 @@ class MapelController extends Controller
      */
     public function destroy(Mapel $mapel)
     {
-        //
+        Mapel::find($mapel->id)->delete();
+        Alert::success('Success', 'Berhasil Menghapus Data');
+        return back();
     }
 }

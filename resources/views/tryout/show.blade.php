@@ -1,4 +1,4 @@
-@extends('layouts.main-layout', ['page_title' => 'Tryout', 'breadcrumb' => ['Tryout'],])
+@extends('layouts.main-layout', ['page_title' => 'Peserta', 'breadcrumb' => ['Tryout', 'Peserta'],])
 
 @section('custom_css')
 @include('components.css.datatable')
@@ -10,9 +10,13 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Tabel Data Tryout</h3>
+          <h3 class="card-title">Tabel Data Peserta Tryout
+              <br> {{ $tryout->nama }} 
+              <br> {{ 'TKA: '. $tryout->tanggal_indo_tka .' - ' .  $tryout->pukul_tka }}
+              <br> {{ 'TPS: '. $tryout->tanggal_indo_tps .' - ' .  $tryout->pukul_tps }}</h3>
           <div class="card-tools">
-            <a type="button" href="{{ route('tryout.create') }}" class="btn btn-block btn-success">Tambah Tryout</a>
+            <a type="button" href="{{ route('tryout.create') }}" class="btn btn-block btn-success">Tambah Data Peserta</a>
+            <a type="button" href="{{ route('tryout.create') }}" class="btn btn-block btn-primary pull-right">Upload Data Peserta</a>
           </div>
         </div>
         <!-- /.card-header -->
@@ -20,36 +24,32 @@
           <table id="datatable" class="table table-bordered table-hover">
             <thead>
             <tr>
-              <th>Nama</th>
-              <th>Tanggal</th>
-              <th>Pukul</th>
-              <th>Jenis</th>
-              <th>Aksi</th>
+                <th>Nomor Peserta</th>
+                <th>Nama Peserta</th>
+                <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($tryouts as $tryout)
+            @foreach ($pesertas as $peserta)
             <tr>
-              <td>{{ $tryout->nama }}</td>
-              <td>{{ 'TKA: '.$tryout->tanggal_indo_tka}}<br>{{'TPS: '.$tryout->tanggal_indo_tps }}</td>
-              <td>{{ 'TKA: '.date("g:i A", strtotime($tryout->pukul_tka))}}<br>{{'TPS: '.date("g:i A", strtotime($tryout->pukul_tps)) }}</td>
-              <td>{{ $tryout->jenis }}</td>
+              <td>{{ $peserta->nama }}</td>
+              <td>{{ $peserta->nomor }}</td>
               <td>
-                <a href="{{ route('tryout.show', $tryout->id) }}">
+                <a href="{{ route('tryout.show', $peserta->id) }}">
                   <div class="btn-group">
                     <button type="button" class="btn btn-success">
                       <i class="fas fa-eye"></i>
                     </button>
                   </div>
                 </a>
-                <a href="{{ route('tryout.edit', $tryout->id) }}">
+                <a href="{{ route('tryout.edit', $peserta->id) }}">
                   <div class="btn-group">
                     <button type="button" class="btn btn-info">
                       <i class="fas fa-edit"></i>
                     </button>
                   </div>
                 </a>
-                <form style="display: inline-block;" action="{{ route('tryout.destroy', $tryout->id) }}" method="POST">
+                <form style="display: inline-block;" action="{{ route('tryout.destroy', $peserta->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this data?')">
@@ -62,14 +62,16 @@
             </tbody>
             <tfoot>
               <tr>
-                <th>Nama</th>
-                <th>Tanggal</th>
-                <th>Pukul</th>
-                <th>Jenis</th>
+                <th>Nomor Peserta</th>
+                <th>Nama Peserta</th>
                 <th>Aksi</th>
               </tr>
             </tfoot>
           </table>
+          <div class="card-tools">
+            <hr>
+            <a type="button" href="{{ route('tryout.index') }}" class="btn btn-block btn-default pull-right" style="width: 10%;">Kembali</a>
+          </div>
         </div>
         <!-- /.card-body -->
       </div>

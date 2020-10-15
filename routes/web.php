@@ -9,6 +9,7 @@ use App\Http\Controllers\UniversitasController;
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\HasilTryoutSiswaController;
 use App\Http\Controllers\SimulasiController;
 use App\Http\Controllers\UpgradeController;
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 	Route::resource('cluster', ClusterController::class);
 	Route::resource('programstudi', ProgramStudiController::class);
 	Route::resource('jurusan', JurusanController::class);
+	Route::resource('mapel', MapelController::class);
 });
 // role siswapremium
 Route::group(['middleware' => ['web', 'auth', 'siswapremium', ]], function () {

@@ -1,4 +1,4 @@
-@extends('layouts.main-layout', ['page_title' => 'Tryout', 'breadcrumb' => ['Tryout'],])
+@extends('layouts.main-layout', ['page_title' => 'Mata Pelajaran', 'breadcrumb' => ['Mata Pelajaran'],])
 
 @section('custom_css')
 @include('components.css.datatable')
@@ -10,9 +10,9 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Tabel Data Tryout</h3>
+          <h3 class="card-title">Tabel Data Mata Pelajaran</h3>
           <div class="card-tools">
-            <a type="button" href="{{ route('tryout.create') }}" class="btn btn-block btn-success">Tambah Tryout</a>
+            <a type="button" href="{{ route('mapel.create') }}" class="btn btn-block btn-success">Tambah Mata Pelajaran</a>
           </div>
         </div>
         <!-- /.card-header -->
@@ -20,36 +20,25 @@
           <table id="datatable" class="table table-bordered table-hover">
             <thead>
             <tr>
+              <th>Kode</th>
               <th>Nama</th>
-              <th>Tanggal</th>
-              <th>Pukul</th>
-              <th>Jenis</th>
               <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($tryouts as $tryout)
+            @foreach ($mapels as $mapel)
             <tr>
-              <td>{{ $tryout->nama }}</td>
-              <td>{{ 'TKA: '.$tryout->tanggal_indo_tka}}<br>{{'TPS: '.$tryout->tanggal_indo_tps }}</td>
-              <td>{{ 'TKA: '.date("g:i A", strtotime($tryout->pukul_tka))}}<br>{{'TPS: '.date("g:i A", strtotime($tryout->pukul_tps)) }}</td>
-              <td>{{ $tryout->jenis }}</td>
+              <td>{{ $mapel->kode }}</td>
+              <td>{{ $mapel->nama }}</td>
               <td>
-                <a href="{{ route('tryout.show', $tryout->id) }}">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                  </div>
-                </a>
-                <a href="{{ route('tryout.edit', $tryout->id) }}">
+                <a href="{{ route('mapel.edit', $mapel->id) }}">
                   <div class="btn-group">
                     <button type="button" class="btn btn-info">
                       <i class="fas fa-edit"></i>
                     </button>
                   </div>
                 </a>
-                <form style="display: inline-block;" action="{{ route('tryout.destroy', $tryout->id) }}" method="POST">
+                <form style="display: inline-block;" action="{{ route('mapel.destroy', $mapel->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this data?')">
@@ -62,10 +51,8 @@
             </tbody>
             <tfoot>
               <tr>
+                <th>Kode</th>
                 <th>Nama</th>
-                <th>Tanggal</th>
-                <th>Pukul</th>
-                <th>Jenis</th>
                 <th>Aksi</th>
               </tr>
             </tfoot>

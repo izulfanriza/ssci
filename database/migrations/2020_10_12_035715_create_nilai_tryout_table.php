@@ -20,7 +20,7 @@ class CreateNilaiTryoutTable extends Migration
             $table->integer('kosong');
             $table->integer('skor');
             $table->string('mapel_kode');
-            $table->string('tryout_id');
+            $table->string('peserta_id');
             $table->timestamps();
         });
     }
