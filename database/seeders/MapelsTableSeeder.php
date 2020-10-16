@@ -25,6 +25,7 @@ class MapelsTableSeeder extends Seeder
             ['kode' => 'ekonomi', 'nama' => 'Ekonomi'],
             ['kode' => 'geografi', 'nama' => 'Geografi'],
             ['kode' => 'sosiologi', 'nama' => 'Sosiologi'],
+            ['kode' => 'sejarah', 'nama' => 'Sejarah'],
             ['kode' => 'k_penalaran_umum', 'nama' => 'Penalaran Umum'],
             ['kode' => 'm_bacaan_dan_menulis', 'nama' => 'Bacaan dan Menulis'],
             ['kode' => 'peng_dan_pemahaman_umum', 'nama' => 'Pengetahuan dan Pemahaman Umum'],

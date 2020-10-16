@@ -16,6 +16,7 @@ class Tryout extends Model
      */
     protected $table = 'tryouts';
     protected $fillable = [
+        'kode',
         'nama',
         'tanggal_tka',
         'tanggal_indo_tka',

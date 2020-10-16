@@ -6,6 +6,7 @@ use App\Models\Tryout;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use App\Imports\PesertaImport;
+use Alert;
 use Excel;
 use Response;
 
@@ -96,14 +97,14 @@ class PesertaController extends Controller
     }
     public function goUpload(Request $request)
     {
-        // gimana caranya membawa variable tryout ini ke file App\Imports\PesertaImport
         $tryout = Tryout::find($request->id);
         if ($request->hasFile('file_peserta')) {
             $file = $request->file('file_peserta');
-            // cara parsing parameternya gimana?
             Excel::import(new PesertaImport, $file);
-            return "Import";
+            Alert::success('Success', 'Berhasil Mengupload Data');
+            return redirect('tryout/'.$request->id);
         }
-        return "Gagal";
+        Alert::success('Gagal', 'Gagal Mengupload Data');
+        return redirect('peserta-upload/'.$request->id);
     }
 }

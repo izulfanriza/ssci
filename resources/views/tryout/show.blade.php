@@ -10,12 +10,12 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Tabel Data Peserta Tryout
-              <br> {{ $tryout->nama }} 
+          <h3 class="card-title">Tabel Data Peserta Tryout - <b> Kode : {{ $tryout->kode }}</b>
+              <br> {{ $tryout->nama }}
               <br> {{ 'TKA: '. $tryout->tanggal_indo_tka .' - ' .  $tryout->pukul_tka }}
               <br> {{ 'TPS: '. $tryout->tanggal_indo_tps .' - ' .  $tryout->pukul_tps }}</h3>
           <div class="card-tools">
-            <a type="button" href="{{ route('peserta.download') }}" class="btn btn-block btn-success">Download Template Data Peserta</a>
+            <a type="button" href="{{ route('peserta.download_template') }}" class="btn btn-block btn-success">Download Template Data Peserta</a>
             <a type="button" href="{{ route('peserta.upload', $tryout->id) }}" class="btn btn-block btn-primary pull-right">Upload Data Peserta</a>
           </div>
         </div>

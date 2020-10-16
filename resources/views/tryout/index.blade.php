@@ -20,6 +20,7 @@
           <table id="datatable" class="table table-bordered table-hover">
             <thead>
             <tr>
+              <th>Kode</th>
               <th>Nama</th>
               <th>Tanggal</th>
               <th>Pukul</th>
@@ -30,6 +31,7 @@
             <tbody>
             @foreach ($tryouts as $tryout)
             <tr>
+              <td>{{ $tryout->kode }}</td>
               <td>{{ $tryout->nama }}</td>
               <td>{{ 'TKA: '.$tryout->tanggal_indo_tka}}<br>{{'TPS: '.$tryout->tanggal_indo_tps }}</td>
               <td>{{ 'TKA: '.date("g:i A", strtotime($tryout->pukul_tka))}}<br>{{'TPS: '.date("g:i A", strtotime($tryout->pukul_tps)) }}</td>
@@ -62,6 +64,7 @@
             </tbody>
             <tfoot>
               <tr>
+                <th>Kode</th>
                 <th>Nama</th>
                 <th>Tanggal</th>
                 <th>Pukul</th>

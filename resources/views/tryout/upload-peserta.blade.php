@@ -6,7 +6,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Upload Data Peserta Tryout {{ $tryout->nama }}</h3>
+          <h3 class="card-title">Upload Data Peserta Tryout {{ $tryout->nama }} - <b> Kode : {{ $tryout->kode }}</b></h3>
         </div>
         <!-- /.card-header -->
         

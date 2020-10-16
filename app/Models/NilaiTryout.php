@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Peserta extends Model
+class NilaiTryout extends Model
 {
     use HasFactory;
 
@@ -14,16 +14,13 @@ class Peserta extends Model
      *
      * @var array
      */
-    protected $table = 'pesertas';
+    protected $table = 'nilai_tryouts';
     protected $fillable = [
-        'nama',
-        'nomor',
-        'rank_tka',
-        'skor_tka',
-        'rank_tps',
-        'skor_tps',
-        'jenis',
-        'tryout_kode',
-        'user_id',
+        'benar',
+        'salah',
+        'kosong',
+        'skor',
+        'mapel_kode',
+        'peserta_id',
     ];
 }

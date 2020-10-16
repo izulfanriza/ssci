@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Alert;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class TryoutController extends Controller
 {
@@ -62,6 +63,7 @@ class TryoutController extends Controller
         $pukul_tps = date("H:i", strtotime($request->pukul_tps));
 
         $tryout = new Tryout;
+        $tryout->kode = strtoupper(Str::random(5)).'-'.Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%d%m%Y");
         $tryout->nama = $request['nama'];
         $tryout->tanggal_tka = $tanggal_tka;
         $tryout->tanggal_indo_tka = Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%A, %d %B %Y");
@@ -86,9 +88,9 @@ class TryoutController extends Controller
     {
         $tryout = Tryout::find($tryout->id);
         $pesertas = DB::table('tryouts')
-        ->join('pesertas','tryouts.id','pesertas.tryout_id')
+        ->join('pesertas','tryouts.kode','pesertas.tryout_kode')
         ->select('pesertas.*')
-        ->where('tryouts.id','=',$tryout->id)
+        ->where('tryouts.kode','=',$tryout->kode)
         ->get();
 
         return view('tryout.show',array())
@@ -147,6 +149,7 @@ class TryoutController extends Controller
         $pukul_tps = date("H:i", strtotime($request->pukul_tps));
 
         $tryout = Tryout::find($tryout->id);
+        $tryout->kode = strtoupper(Str::random(5)).'-'.Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%d%m%Y");
         $tryout->nama = $request['nama'];
         $tryout->tanggal_tka = $tanggal_tka;
         $tryout->tanggal_indo_tka = Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%A, %d %B %Y");
