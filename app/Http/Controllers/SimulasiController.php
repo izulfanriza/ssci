@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cluster;
+
 use App\Models\Simulasi;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,10 @@ class SimulasiController extends Controller
      */
     public function index()
     {
-        return view('simulasi.index');
+        $clusters = Cluster::all();
+
+        return view('simulasi.index',array())
+        ->with('clusters',$clusters);
     }
 
     /**
@@ -24,7 +29,7 @@ class SimulasiController extends Controller
      */
     public function create()
     {
-        //
+        return view('simulasi.create');
     }
 
     /**
@@ -44,9 +49,9 @@ class SimulasiController extends Controller
      * @param  \App\Models\Simulasi  $simulasi
      * @return \Illuminate\Http\Response
      */
-    public function show(Simulasi $simulasi)
+    public function show(Simulasi $simulasis)
     {
-        //
+        return view('simulasi.show');
     }
 
     /**

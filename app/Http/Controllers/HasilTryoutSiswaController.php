@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cluster;
+
 use App\Models\HasilTryoutSiswa;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,10 @@ class HasilTryoutSiswaController extends Controller
      */
     public function index()
     {
-        return view('hasiltryoutsiswa.index');
+        $clusters = Cluster::all();
+
+        return view('hasiltryoutsiswa.index',array())
+        ->with('clusters',$clusters);
     }
 
     /**
@@ -24,7 +29,7 @@ class HasilTryoutSiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('hasiltryoutsiswa.create');
     }
 
     /**
@@ -46,7 +51,7 @@ class HasilTryoutSiswaController extends Controller
      */
     public function show(HasilTryoutSiswa $hasilTryoutSiswa)
     {
-        //
+        return view('hasiltryoutsiswa.show');
     }
 
     /**

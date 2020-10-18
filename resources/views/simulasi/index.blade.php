@@ -1,64 +1,68 @@
 @extends('layouts.main-layout', ['page_title' => 'Simulasi', 'breadcrumb' => ['Simulasi'],])
 
+@section('custom_css')
+@include('components.css.datatable')
+@endsection
+
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-
-      <div class="card card-primary card-outline">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div><!-- /.card -->
-    </div>
-    <!-- /.col-md-6 -->
-    <div class="col-lg-6">
+    <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="m-0">Featured</h5>
+          <h3 class="card-title">Tabel Data Simulasi</h3>
+          <div class="card-tools">
+            <a type="button" href="{{ route('simulasi.create') }}" class="btn btn-block btn-success">Buat Simulasi Baru</a>
+          </div>
         </div>
+        <!-- /.card-header -->
         <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
-
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <table id="datatable" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Jenis</th>
+              <th>Pilihan 1 - Status</th>
+              <th>Pilihan 2 - Status</th>
+              <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($clusters as $cluster)
+            <tr>
+              <td>{{ $cluster->kode }}</td>
+              <td>{{ $cluster->nama }} &nbsp;-&nbsp; <span class="badge bg-success">Lolos</span></td>
+              <td>{{ $cluster->klasifikasi }} &nbsp;-&nbsp; <span class="badge bg-danger">Gagal</span></td>
+              <td>
+                <a href="{{ route('simulasi.show', $cluster->id) }}">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </a>
+              </td>
+            </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Jenis</th>
+                <th>Pilihan 1 - Status</th>
+                <th>Pilihan 2 - Status</th>
+                <th>Aksi</th>
+              </tr>
+            </tfoot>
+          </table>
         </div>
+        <!-- /.card-body -->
       </div>
-
-      <div class="card card-primary card-outline">
-        <div class="card-header">
-          <h5 class="m-0">Featured</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
-
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
+      <!-- /.card -->
     </div>
-    <!-- /.col-md-6 -->
-  </div>
-  <!-- /.row -->
+</div>
+<!-- /.row -->
 
-  @endsection
+@endsection
+
+@section('custom_script')
+@include('components.js.datatable')
+@endsection
