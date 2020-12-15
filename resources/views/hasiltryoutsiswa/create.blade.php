@@ -1,64 +1,95 @@
-@extends('layouts.main-layout', ['page_title' => 'Sinkronkan Tryout Saya', 'breadcrumb' => ['Data Tryout Saya','Sinkronkan Tryout Saya'],])
+@extends('layouts.main-layout', ['page_title' => 'Tambah Tryout Saya', 'breadcrumb' => ['Data Tryout Saya', 'Cari Data Tryout', 'Tambah Tryout Saya'],])
+
+@section('custom_css')
+@include('components.css.datatable')
+@endsection
 
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-12">
       <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
+        @foreach ($tryout as $key => $tryout)
+          <div class="card-header">
+            <h3 class="card-title">Tabel Data Peserta Tryout - <b> Kode : {{ $tryout->kode }}</b>
+                <br> {{ $tryout->nama }}
+                <br> {{ 'TKA: '. $tryout->tanggal_indo_tka .' - ' .  $tryout->pukul_tka }}
+                <br> {{ 'TPS: '. $tryout->tanggal_indo_tps .' - ' .  $tryout->pukul_tps }}</h3>
+            <div class="card-tools">
+            </div>
+          </div>
+        @endforeach
+        <!-- /.card-header -->
 
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="card-link">Kembali</a>
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="card-link">Kembali</a>
-        </div>
+        @foreach ($peserta as $key => $peserta)
+        <form method="POST" action="{{ route('hasiltryoutsiswa.store') }}" class="form-horizontal">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-6" hidden>
+                      <div class="form-group">
+                          <label for="id">ID Peserta</label>
+                          <input type="text" name="id" class="form-control" id="id" value="{{ old('id',$peserta->id) }}">
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="nomor">Nomor Peserta</label>
+                          <input type="text" name="nomor" class="form-control" id="nomor" value="{{ old('nomor',$peserta->nomor) }}" readonly>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="nama">Nama Peserta</label>
+                          <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama',$peserta->nama) }}" readonly>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="skor_tka">Skor TKA</label>
+                          <input type="text" name="skor_tka" class="form-control" id="skor_tka" value="{{ old('skor_tka',$peserta->skor_tka) }}" readonly>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="rank_tka">Rank TKA</label>
+                          <input type="text" name="rank_tka" class="form-control" id="rank_tka" value="{{ old('rank_tka',$peserta->rank_tka) }}" readonly>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="nomor">Skor TPS</label>
+                          <input type="text" name="nomor" class="form-control" id="nomor" value="{{ old('nomor',$peserta->nomor) }}" readonly>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="rank_tps">Rank TPS</label>
+                          <input type="text" name="rank_tps" class="form-control" id="rank_tps" value="{{ old('rank_tps',$peserta->rank_tps) }}" readonly>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+              <a type="button" href="{{ route('hasiltryoutsiswa.cari') }}" class="btn btn-default">Kembali</a>
+              {{ csrf_field() }}
+              <button type="submit" class="btn btn-primary float-right">Sinkronkan</button>
+          </div>
+      </form>
+      @endforeach
+        <!-- /.card-body -->
       </div>
-
-      <div class="card card-primary card-outline">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
-          </p>
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="card-link">Kembali</a>
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="card-link">Kembali</a>
-        </div>
-      </div><!-- /.card -->
+      <!-- /.card -->
     </div>
-    <!-- /.col-md-6 -->
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="m-0">Featured</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
+</div>
+<!-- /.row -->
 
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="btn btn-default">Kembali</a>
-        </div>
-      </div>
+@endsection
 
-      <div class="card card-primary card-outline">
-        <div class="card-header">
-          <h5 class="m-0">Featured</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title">Special title treatment</h6>
-
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="{{ route('hasiltryoutsiswa.index') }}" class="btn btn-default">Kembali</a>
-        </div>
-      </div>
-    </div>
-    <!-- /.col-md-6 -->
-  </div>
-  <!-- /.row -->
-
-  @endsection
+@section('custom_script')
+@include('components.js.datatable')
+@endsection

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cluster;
-
 use App\Models\HasilTryoutSiswa;
+use App\Models\Peserta;
+use App\Models\Tryout;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Alert;
 use Illuminate\Http\Request;
 
 class HasilTryoutSiswaController extends Controller
@@ -16,10 +20,16 @@ class HasilTryoutSiswaController extends Controller
      */
     public function index()
     {
-        $clusters = Cluster::all();
+        $thisUser = Auth::user();
+        $user = User::find($thisUser->id);
+        $tryouts = DB::table('tryouts')
+        ->join('pesertas','tryouts.kode','pesertas.tryout_kode')
+        ->select('tryouts.*')
+        ->where('pesertas.user_id','=',$user->id)
+        ->get();
 
         return view('hasiltryoutsiswa.index',array())
-        ->with('clusters',$clusters);
+        ->with('tryouts',$tryouts);
     }
 
     /**
@@ -40,7 +50,14 @@ class HasilTryoutSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $thisUser = Auth::user();
+
+        $peserta = Peserta::find($request->id);
+        $peserta->user_id = $thisUser->id;
+        $peserta->save();
+        Alert::success('Success', 'Berhasil Sinkronkan Data');
+        return redirect('hasiltryoutsiswa');
     }
 
     /**
@@ -49,9 +66,30 @@ class HasilTryoutSiswaController extends Controller
      * @param  \App\Models\HasilTryoutSiswa  $hasilTryoutSiswa
      * @return \Illuminate\Http\Response
      */
-    public function show(HasilTryoutSiswa $hasilTryoutSiswa)
+    public function show(Tryout $hasiltryoutsiswa)
     {
-        return view('hasiltryoutsiswa.show');
+        $thisUser = Auth::user();
+        $tryouts = Tryout::find($hasiltryoutsiswa->id);
+        $tryout = DB::table('tryouts')
+        ->join('pesertas','tryouts.kode','pesertas.tryout_kode')
+        ->select('tryouts.*','pesertas.nama as nama_peserta', 'pesertas.nomor as nomor_peserta', 'pesertas.skor_tka', 'pesertas.rank_tka', 'pesertas.skor_tps', 'pesertas.rank_tps')
+        ->where('tryouts.id','=',$hasiltryoutsiswa->id)
+        ->where('pesertas.user_id','=',$thisUser->id)
+        ->get();
+        $peserta = DB::table('pesertas')
+        ->select('pesertas.*')
+        ->where('pesertas.tryout_kode','=',$tryouts->kode)
+        ->where('pesertas.user_id','=',$thisUser->id)
+        ->first();
+        $simulasis = DB::table('simulasi_tryouts')
+        ->select('simulasi_tryouts.*')
+        ->where('simulasi_tryouts.peserta_id','=',$peserta->id)
+        ->get();
+        // return $simulasis;
+
+        return view('hasiltryoutsiswa.show',array())
+        ->with('tryout',$tryout)
+        ->with('simulasis',$simulasis);
     }
 
     /**
@@ -62,7 +100,8 @@ class HasilTryoutSiswaController extends Controller
      */
     public function edit(HasilTryoutSiswa $hasilTryoutSiswa)
     {
-        //
+        $hasilTryoutSiswa = Peserta::find($hasilTryoutSiswa->id);
+        return $hasilTryoutSiswa;
     }
 
     /**
@@ -86,5 +125,30 @@ class HasilTryoutSiswaController extends Controller
     public function destroy(HasilTryoutSiswa $hasilTryoutSiswa)
     {
         //
+    }
+
+    public function cari()
+    {
+        return view('hasiltryoutsiswa.cari');
+    }
+
+    public function goCari(Request $request)
+    {
+        $tryout = DB::table('tryouts')
+        ->select('tryouts.*')
+        ->where('tryouts.kode','=',$request->tryout_kode)
+        ->get();
+
+        $peserta = DB::table('pesertas')
+        ->join('tryouts','pesertas.tryout_kode','tryouts.kode')
+        ->select('pesertas.*')
+        ->where('tryouts.kode','=',$request->tryout_kode)
+        ->where('pesertas.nomor','=',$request->nomor)
+        ->get();
+
+        // return $tryout;
+        return view('hasiltryoutsiswa.create',array())
+        ->with('tryout',$tryout)
+        ->with('peserta',$peserta);
     }
 }

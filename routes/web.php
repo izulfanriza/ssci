@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TryoutController;
 use App\Http\Controllers\PesertaController;
-use App\Http\Controllers\HasilTryoutController;
+// use App\Http\Controllers\HasilTryoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UniversitasController;
 use App\Http\Controllers\ClusterController;
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 	Route::get('peserta-download-template', [PesertaController::class, 'downloadTemplate'])->name('peserta.download_template');
 	Route::get('peserta-upload/{tryout_id}', [PesertaController::class, 'upload'])->name('peserta.upload');
 	Route::post('peserta-upload', [PesertaController::class, 'goUpload'])->name('peserta.goupload');
-	Route::resource('hasiltryout', HasilTryoutController::class);
+	// Route::resource('hasiltryout', HasilTryoutController::class);
 	Route::resource('user', UserController::class);
 	Route::resource('universitas', UniversitasController::class);
 	Route::resource('cluster', ClusterController::class);
@@ -55,6 +55,8 @@ Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 });
 // role siswapremium
 Route::group(['middleware' => ['web', 'auth', 'siswapremium', ]], function () {
+	Route::get('hasiltryoutsiswa/cari', [HasilTryoutSiswaController::class, 'cari'])->name('hasiltryoutsiswa.cari');
+	Route::post('hasiltryoutsiswa/go-cari', [HasilTryoutSiswaController::class, 'goCari'])->name('hasiltryoutsiswa.gocari');
 	Route::resource('hasiltryoutsiswa', HasilTryoutSiswaController::class);
 });
 

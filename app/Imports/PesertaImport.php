@@ -24,10 +24,10 @@ class PesertaImport implements ToCollection
                 $peserta = new Peserta;
                 $peserta->nama = $value[1];
                 $peserta->nomor = $value[2];
-                $peserta->rank_tka = $value[3];
                 $peserta->skor_tka = $value[4];
-                $peserta->rank_tps = $value[5];
+                $peserta->rank_tka = $value[3];
                 $peserta->skor_tps = $value[6];
+                $peserta->rank_tps = $value[5];
                 $peserta->tryout_kode = $value[0];
                 $peserta->save();
 
