@@ -42,9 +42,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 	Route::resource('tryout', TryoutController::class);
 	Route::resource('peserta', PesertaController::class);
-	Route::get('peserta-download', function () {
-		return response()->download(storage_path('app/files/template_peserta.xlsx'));
-	})->name('peserta.download_template');
+	Route::get('peserta-download-template', [PesertaController::class, 'downloadTemplate'])->name('peserta.download_template');
 	Route::get('peserta-upload/{tryout_id}', [PesertaController::class, 'upload'])->name('peserta.upload');
 	Route::post('peserta-upload', [PesertaController::class, 'goUpload'])->name('peserta.goupload');
 	Route::resource('hasiltryout', HasilTryoutController::class);

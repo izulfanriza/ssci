@@ -88,6 +88,12 @@ class PesertaController extends Controller
         //
     }
 
+    public function downloadTemplate()
+    {
+        $path = public_path()."/files/template_peserta.xlsx";
+        return Response::download($path, 'template_peserta.xlsx');
+    }
+
     public function upload($tryout_id)
     {
         $tryout = Tryout::find($tryout_id);
