@@ -23,7 +23,7 @@
               <th>Universitas</th>
               <th>Jurusan</th>
               <th>Prioritas</th>
-              <th>Hasil</th>
+              <th style="width: 20%">Hasil</th>
               <th>Aksi</th>
             </tr>
             </thead>
@@ -35,7 +35,14 @@
                 <td>{{ $simulasi->pilihan }}</td>
                 <td>
                   @if ($simulasi->hasil == 'lolos')<span class="badge bg-success">Lolos</span>@endif
-                  @if ($simulasi->hasil == 'tidaklolos')<span class="badge bg-danger">Tidak Lolos</span>@endif
+                  @if($simulasi->hasil == 'tidaklolos')
+                    <span class="badge bg-danger">Tidak Lolos</span> &nbsp;
+                    <a href="{{ route('simulasi.rekomendasi', $simulasi->id) }}">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-info">Lihat Rekomendasi</button>
+                      </div>
+                    </a>
+                  @endif
                 </td>
               <td>
                 <a href="{{ route('simulasi.show', $simulasi->id) }}">

@@ -65,6 +65,7 @@ Route::group(['middleware' => ['web', 'auth', 'siswapremium', ]], function () {
 });
 
 Route::group(['middleware' => ['web', 'auth', 'siswabiasa', ]], function () {
+	Route::get('simulasi/{simulasi_id}/rekomendasi', [SimulasiController::class, 'rekomendasi'])->name('simulasi.rekomendasi');
 	Route::resource('simulasi', SimulasiController::class);
 	Route::resource('upgrade', UpgradeController::class);
 	Route::resource('rekomendasi', RekomendasiController::class);

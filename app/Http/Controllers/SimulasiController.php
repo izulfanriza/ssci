@@ -95,4 +95,48 @@ class SimulasiController extends Controller
     {
         //
     }
+
+    public function rekomendasi($simulasi_id)
+    {
+        $thisUser = Auth::user();
+        if ($thisUser->role == 'siswabiasa') {
+            return redirect('upgrade');
+        }
+        elseif ($thisUser->role == 'siswapremium') {
+            return "Siswa Premium";
+            $simulasi = SimulasiTryout::find($simulasi_id);
+            $simulasis = DB::table('simulasi_tryouts')
+            ->join('jurusans','simulasi_tryouts.jurusan_kode','jurusans.kode')
+            ->join('universitas','jurusans.universitas_kode','universitas.kode')
+            ->select('simulasi_tryouts.*','jurusans.nama as nama_jurusan', 'universitas.nama as nama_universitas')
+            ->where('simulasi_tryouts.id','=',$simulasi_id)
+            ->get();
+            $jurusan = DB::table('jurusans')
+            ->join('universitas','jurusans.universitas_kode','universitas.kode')
+            ->select('jurusans.*', 'universitas.nama as nama_universitas')
+            ->where('jurusans.kode','=',$simulasi->jurusan_kode)
+            ->first();
+            $peserta = Peserta::find($simulasi->peserta_id);
+            $sbmptn6040 = (($peserta->skor_tps*0.6) + ($peserta->skor_tka*0.4))/2;
+            $tryout = DB::table('tryouts')
+            ->join('pesertas','tryouts.kode','pesertas.tryout_kode')
+            ->select('tryouts.*', 'pesertas.id as id_peserta', 'pesertas.nama as nama_peserta', 'pesertas.nomor as nomor_peserta', 'pesertas.skor_tka', 'pesertas.rank_tka', 'pesertas.skor_tps', 'pesertas.rank_tps')
+            ->where('pesertas.id','=',$simulasi->peserta_id)
+            ->get();
+            $rekomendasis = DB::table('jurusans')
+            ->join('universitas','jurusans.universitas_kode','universitas.kode')
+            ->select('jurusans.prioritas', 'jurusans.nama as nama_jurusan', 'universitas.nama as nama_universitas')
+            ->where('jurusans.nilai_perhitungan','<=',$sbmptn6040)
+            ->where('jurusans.cluster_kode','=',$jurusan->cluster_kode)
+            ->where('jurusans.program_studi_kode','=',$jurusan->program_studi_kode)
+            ->where('jurusans.prioritas','=',$jurusan->prioritas)
+            ->get();
+
+            return view('hasiltryoutsiswa.rekomendasi',array())
+            ->with('tryout',$tryout)
+            ->with('simulasi',$simulasi)
+            ->with('simulasis',$simulasis)
+            ->with('rekomendasis',$rekomendasis);
+        }
+    }
 }
