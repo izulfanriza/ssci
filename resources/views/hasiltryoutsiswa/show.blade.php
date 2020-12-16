@@ -20,24 +20,26 @@
               <br> <b> Nama Peserta : {{ $tryout->nama_peserta }}</b>
               <br> Skor TKA : {{ $tryout->skor_tka .' - Rank TKA : ' .  $tryout->rank_tka }}
               <br> SKOR TPS : {{ $tryout->skor_tps .' - Rank TPS : ' .  $tryout->rank_tps }}</h3>
-        @endforeach
           <div class="card-tools">
-            <a type="button" href="{{ route('peserta.download_template') }}" class="btn btn-block btn-success">Tambah Simulasi</a>
+            <a type="button" href="{{ route('hasiltryoutsiswa.addsimulasi', $tryout->id_peserta) }}" class="btn btn-block btn-success">Tambah Simulasi</a>
           </div>
+        @endforeach
         </div>
         <!-- /.card-header -->
         <div class="card-body">
           <table id="datatable" class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>Universitas</th>
                 <th>Jurusan</th>
-                <th>Pilihan</th>
+                <th>Prioritas</th>
                 <th>Hasil</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($simulasis as $simulasi)
             <tr>
+                <td>{{ $simulasi->jurusan_kode }}</td>
                 <td>{{ $simulasi->jurusan_kode }}</td>
                 <td>{{ $simulasi->pilihan }}</td>
                 <td>{{ $simulasi->hasil }}</td>
@@ -46,8 +48,9 @@
             </tbody>
             <tfoot>
               <tr>
+                <th>Universitas</th>
                 <th>Jurusan</th>
-                <th>Pilihan</th>
+                <th>Prioritas</th>
                 <th>Hasil</th>
               </tr>
             </tfoot>

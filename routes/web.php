@@ -57,6 +57,9 @@ Route::group(['middleware' => ['web', 'auth', 'admin', ]], function () {
 Route::group(['middleware' => ['web', 'auth', 'siswapremium', ]], function () {
 	Route::get('hasiltryoutsiswa/cari', [HasilTryoutSiswaController::class, 'cari'])->name('hasiltryoutsiswa.cari');
 	Route::post('hasiltryoutsiswa/go-cari', [HasilTryoutSiswaController::class, 'goCari'])->name('hasiltryoutsiswa.gocari');
+	Route::get('hasiltryoutsiswa/{peserta_id}/simulasi', [HasilTryoutSiswaController::class, 'addSimulasi'])->name('hasiltryoutsiswa.addsimulasi');
+	Route::post('hasiltryoutsiswa/simulasi', [HasilTryoutSiswaController::class, 'saveSimulasi'])->name('hasiltryoutsiswa.savesimulasi');
+	Route::get('hasiltryoutsiswa/finduniversitas', [HasilTryoutSiswaController::class, 'findUniversitas']);
 	Route::resource('hasiltryoutsiswa', HasilTryoutSiswaController::class);
 });
 
