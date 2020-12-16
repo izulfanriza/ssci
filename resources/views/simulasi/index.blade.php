@@ -20,20 +20,25 @@
           <table id="datatable" class="table table-bordered table-hover">
             <thead>
             <tr>
-              <th>Jenis</th>
-              <th>Pilihan 1 - Status</th>
-              <th>Pilihan 2 - Status</th>
+              <th>Universitas</th>
+              <th>Jurusan</th>
+              <th>Prioritas</th>
+              <th>Hasil</th>
               <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($clusters as $cluster)
+            @foreach ($simulasis as $simulasi)
             <tr>
-              <td>{{ $cluster->kode }}</td>
-              <td>{{ $cluster->nama }} &nbsp;-&nbsp; <span class="badge bg-success">Lolos</span></td>
-              <td>{{ $cluster->klasifikasi }} &nbsp;-&nbsp; <span class="badge bg-danger">Gagal</span></td>
+              <td>{{ $simulasi->nama_universitas }}</td>
+                <td>{{ $simulasi->nama_jurusan }}</td>
+                <td>{{ $simulasi->pilihan }}</td>
+                <td>
+                  @if ($simulasi->hasil == 'lolos')<span class="badge bg-success">Lolos</span>@endif
+                  @if ($simulasi->hasil == 'tidaklolos')<span class="badge bg-danger">Tidak Lolos</span>@endif
+                </td>
               <td>
-                <a href="{{ route('simulasi.show', $cluster->id) }}">
+                <a href="{{ route('simulasi.show', $simulasi->id) }}">
                   <div class="btn-group">
                     <button type="button" class="btn btn-info">
                       <i class="fas fa-eye"></i>
@@ -46,9 +51,10 @@
             </tbody>
             <tfoot>
               <tr>
-                <th>Jenis</th>
-                <th>Pilihan 1 - Status</th>
-                <th>Pilihan 2 - Status</th>
+                <th>Universitas</th>
+                <th>Jurusan</th>
+                <th>Prioritas</th>
+                <th>Hasil</th>
                 <th>Aksi</th>
               </tr>
             </tfoot>

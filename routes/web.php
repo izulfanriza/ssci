@@ -60,12 +60,14 @@ Route::group(['middleware' => ['web', 'auth', 'siswapremium', ]], function () {
 	Route::get('hasiltryoutsiswa/{peserta_id}/simulasi', [HasilTryoutSiswaController::class, 'addSimulasi'])->name('hasiltryoutsiswa.addsimulasi');
 	Route::post('hasiltryoutsiswa/simulasi', [HasilTryoutSiswaController::class, 'saveSimulasi'])->name('hasiltryoutsiswa.savesimulasi');
 	Route::get('hasiltryoutsiswa/finduniversitas', [HasilTryoutSiswaController::class, 'findUniversitas']);
+	Route::get('hasiltryoutsiswa/{simulasi_id}/rekomendasi', [HasilTryoutSiswaController::class, 'rekomendasi'])->name('hasiltryoutsiswa.rekomendasi');
 	Route::resource('hasiltryoutsiswa', HasilTryoutSiswaController::class);
 });
 
 Route::group(['middleware' => ['web', 'auth', 'siswabiasa', ]], function () {
 	Route::resource('simulasi', SimulasiController::class);
 	Route::resource('upgrade', UpgradeController::class);
+	Route::resource('rekomendasi', RekomendasiController::class);
 });
 // semua user
 Route::resource('profil', ProfilController::class);

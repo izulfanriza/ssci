@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cluster;
 
 use App\Models\Simulasi;
+use Illuminate\Support\Facades\DB;
+use Auth;
 use Illuminate\Http\Request;
 
 class SimulasiController extends Controller
@@ -16,10 +18,16 @@ class SimulasiController extends Controller
      */
     public function index()
     {
-        $clusters = Cluster::all();
+        $thisUser = Auth::user();
+        $simulasis = DB::table('simulasi_manuals')
+        ->join('jurusans','simulasi_manuals.jurusan_kode','jurusans.kode')
+        ->join('universitas','jurusans.universitas_kode','universitas.kode')
+        ->select('simulasi_manuals.*','jurusans.nama as nama_jurusan', 'universitas.nama as nama_universitas')
+        ->where('simulasi_manuals.user_id','=',$thisUser->id)
+        ->get();
 
         return view('simulasi.index',array())
-        ->with('clusters',$clusters);
+        ->with('simulasis',$simulasis);
     }
 
     /**
@@ -40,7 +48,7 @@ class SimulasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
     }
 
     /**

@@ -56,7 +56,7 @@
                             <select class="form-control" type="select" name="role" value="{{ old('role') }}">
                                 <option disabled selected>--Pilih Role--</option>
                                 <option value="admin" <?php echo old('role',$user->role) == 'admin' ? 'selected' : '' ;?>>Admin</option>
-                                <option value="siswapremieum" <?php echo old('role',$user->role) == 'siswapremieum' ? 'selected' : '' ;?>>Siswa Premium</option>
+                                <option value="siswapremium" <?php echo old('role',$user->role) == 'siswapremium' ? 'selected' : '' ;?>>Siswa Premium</option>
                                 <option value="siswabiasa" <?php echo old('role',$user->role) == 'siswabiasa' ? 'selected' : '' ;?>>Siswa Biasa</option>
                             </select>
                             @error('role')

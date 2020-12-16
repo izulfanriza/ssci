@@ -1,4 +1,4 @@
-@extends('layouts.main-layout', ['page_title' => 'Lihat Data Tryout', 'breadcrumb' => ['Data Tryout Saya', 'Lihat Data Tryout'],])
+@extends('layouts.main-layout', ['page_title' => 'Rekomendasi Jurusan', 'breadcrumb' => ['Data Tryout Saya', 'Lihat Data Tryout', 'Rekomendasi Jurusan'],])
 
 @section('custom_css')
 @include('components.css.datatable')
@@ -21,7 +21,6 @@
               <br> Skor TKA : {{ $tryout->skor_tka .' - Rank TKA : ' .  $tryout->rank_tka }}
               <br> SKOR TPS : {{ $tryout->skor_tps .' - Rank TPS : ' .  $tryout->rank_tps }}</h3>
           <div class="card-tools">
-            <a type="button" href="{{ route('hasiltryoutsiswa.addsimulasi', $tryout->id_peserta) }}" class="btn btn-block btn-success">Tambah Simulasi</a>
           </div>
         @endforeach
         </div>
@@ -33,26 +32,14 @@
                 <th>Universitas</th>
                 <th>Jurusan</th>
                 <th>Prioritas</th>
-                <th style="width: 20%">Hasil</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($simulasis as $simulasi)
+            @foreach ($rekomendasis as $rekomendasi)
             <tr>
-                <td>{{ $simulasi->nama_universitas }}</td>
-                <td>{{ $simulasi->nama_jurusan }}</td>
-                <td>{{ $simulasi->pilihan }}</td>
-                <td>
-                  @if ($simulasi->hasil == 'lolos')<span class="badge bg-success">Lolos</span>@endif
-                  @if($simulasi->hasil == 'tidaklolos')
-                    <span class="badge bg-danger">Tidak Lolos</span> &nbsp;
-                    <a href="{{ route('hasiltryoutsiswa.rekomendasi', $simulasi->id) }}">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-info">Lihat Rekomendasi</button>
-                      </div>
-                    </a>
-                  @endif
-                </td>
+                <td>{{ $rekomendasi->nama_universitas }}</td>
+                <td>{{ $rekomendasi->nama_jurusan }}</td>
+                <td>{{ $rekomendasi->prioritas }}</td>
             </tr>
             @endforeach
             </tbody>
@@ -61,13 +48,12 @@
                 <th>Universitas</th>
                 <th>Jurusan</th>
                 <th>Prioritas</th>
-                <th>Hasil</th>
               </tr>
             </tfoot>
           </table>
           <div class="card-tools">
             <hr>
-            <a type="button" href="{{ route('hasiltryoutsiswa.index') }}" class="btn btn-block btn-default pull-right" style="width: 10%;">Kembali</a>
+            <a type="button" href="{{ route('hasiltryoutsiswa.show',$tryout->id) }}" class="btn btn-block btn-default pull-right" style="width: 10%;">Kembali</a>
           </div>
         </div>
         <!-- /.card-body -->

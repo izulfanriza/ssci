@@ -14,7 +14,7 @@ class SimulasiTryout extends Model
      *
      * @var array
      */
-    protected $table = 'simulasi_tryout';
+    protected $table = 'simulasi_tryouts';
     protected $fillable = [
         'pilihan',
         'hasil',
