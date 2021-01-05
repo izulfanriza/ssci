@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        setlocale(LC_TIME, 'id_ID');
-        // setlocale(LC_TIME, 'nl_NL.utf8'); //online
+        // setlocale(LC_TIME, 'id_ID');
+        setlocale(LC_TIME, 'id_ID.utf8'); //online
     }
 }
