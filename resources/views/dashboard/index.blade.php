@@ -14,7 +14,7 @@
   @if(Auth::user()->role=='siswapremium')
     <div class="col-lg-12">
       <div class="alert-info p-2 rounded">
-        Selamat Datang Siswa Premium, di Aplikasi SSCIntersolusi!!
+        Selamat Datang Siswa Premium, di Aplikasi SSCIntersolusi!! &emsp; {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}
       </div>
     </div>
   @endif
@@ -22,7 +22,7 @@
   @if(Auth::user()->role=='siswabiasa')
     <div class="col-lg-12">
       <div class="alert-info p-2 rounded">
-        Selamat Datang Siswa, di Aplikasi SSCIntersolusi!!
+        Selamat Datang Siswa, di Aplikasi SSCIntersolusi!! &emsp; {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}
       </div>
     </div>
   @endif
