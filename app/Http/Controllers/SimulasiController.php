@@ -6,6 +6,7 @@ use App\Models\Cluster;
 
 use App\Models\Simulasi;
 use Illuminate\Support\Facades\DB;
+use App\Models\Universitas;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,9 @@ class SimulasiController extends Controller
      */
     public function create()
     {
-        return view('simulasi.create');
+        $universitas = Universitas::all();
+        return view('simulasi.create',array())
+        ->with('universitas',$universitas);
     }
 
     /**

@@ -1,5 +1,9 @@
 @extends('layouts.main-layout', ['page_title' => 'Buat Simulasi', 'breadcrumb' => ['Simulasi','Buat Simulasi'],])
 
+@section('custom_css')
+@include('components.css.select2')
+@endsection
+
 @section('content')
 
 <div class="row">
@@ -97,29 +101,20 @@
              <div class="row">
                 <div class="col-md-6">
                     <h6 class="font-weight-bold text-center">Pilihan Jurusan 1</h6>
-                  <div class="form-group">
-                    <label>Universitas</label>
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected="selected">Alabama</option>
-                      <option>Alaska</option>
-                      <option>California</option>
-                      <option>Delaware</option>
-                      <option>Tennessee</option>
-                      <option>Texas</option>
-                      <option>Washington</option>
-                    </select>
-                  </div>
+                    <div class="form-group">
+                      <label for="universitas">Universitas<span class="text-danger">*</span></label>
+                      <select name="universitas" id="universitas" class="form-control select2 required">
+                          <option selected disabled>--Pilih Universitas--</option>
+                          <?php foreach($universitas as $key => $universitas): ?>
+                              <option value="<?php echo $universitas->kode;?>"><?php echo $universitas->nama;?></option> 
+                          <?php EndForeach; ?>
+                      </select>
+                    </div>
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label>Jurusan</label>
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected="selected">Alabama</option>
-                      <option>Alaska</option>
-                      <option>California</option>
-                      <option>Delaware</option>
-                      <option>Tennessee</option>
-                      <option>Texas</option>
-                      <option>Washington</option>
+                    <label for="jurusan">Jurusan<span class="text-danger">*</span></label>
+                    <select name="jurusan" id="jurusan" class="form-control select2 required">
+                        <option disabled selected>--Pilih Jurusan--</option>
                     </select>
                   </div>
                   <!-- /.form-group -->
@@ -314,3 +309,33 @@
   <!-- /.row -->
 
   @endsection
+
+@section('custom_script')
+@include('components.js.select2')
+<script>
+    $(document).ready(function () {
+    $(document).on('change', '#universitas', function() {
+        var universitas_kode = $(this).val();
+        var jenis_program_studi = $('#jenis_program_studi').val();
+        // alert(jenis_program_studi);
+        var div = $(this).parent();
+        var op = " ";
+        $.ajax({
+            type: 'get',
+            url: '{!!URL::to('hasiltryoutsiswa/finduniversitas')!!}',
+            data: {'kode':universitas_kode, 'jenis_program_studi':jenis_program_studi},
+            success: function(data){
+                for (var i = 0; i < data.length; i++){
+                    op += '<option value="'+data[i].kode+'">'+data[i].nama+'</option>';
+                }
+                $('#jurusan').html(" ");
+                $('#jurusan').append(op);
+            },
+            error: function(){
+                console.log('success');
+            },
+        });
+    });
+});
+</script>
+@endsection

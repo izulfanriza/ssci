@@ -21,7 +21,7 @@ class CreatePesertaTable extends Migration
             $table->string('rank_tka');
             $table->string('skor_tps');
             $table->string('rank_tps');
-            $table->string('tryout_id');
+            $table->string('tryout_kode');
             $table->string('user_id')->nullable();
             $table->timestamps();
         });
