@@ -66,10 +66,11 @@ class TryoutController extends Controller
         $tryout->kode = strtoupper(Str::random(5)).'-'.Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%d%m%Y");
         $tryout->nama = $request['nama'];
         $tryout->tanggal_tka = $tanggal_tka;
-        $tryout->tanggal_indo_tka = Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->formatLocalized("%A, %d %B %Y");
+        // $tryout->tanggal_indo_tka = Carbon::parse($request['tanggal_tka'])->formatLocalized("%A, %d %B %Y");
+        $tryout->tanggal_indo_tka = Carbon::createFromFormat('m/d/Y', $request['tanggal_tka'])->isoFormat('dddd, D MMMM Y');
         $tryout->pukul_tka = $pukul_tka;
         $tryout->tanggal_tps = $tanggal_tps;
-        $tryout->tanggal_indo_tps = Carbon::createFromFormat('m/d/Y', $request['tanggal_tps'])->formatLocalized("%A, %d %B %Y");
+        $tryout->tanggal_indo_tps = Carbon::createFromFormat('m/d/Y', $request['tanggal_tps'])->isoFormat('dddd, D MMMM Y');
         $tryout->pukul_tps = $pukul_tps;
         $tryout->jenis = $request['jenis'];
         $tryout->save();

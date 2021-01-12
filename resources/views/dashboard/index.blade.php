@@ -6,7 +6,7 @@
   @if(Auth::user()->role=='admin')
     <div class="col-lg-12">
       <div class="alert-info p-2 rounded">
-        Selamat Datang Admin, di Aplikasi SSCIntersolusi!
+        Selamat Datang Admin, di Aplikasi SSCIntersolusi! &emsp; {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}
       </div>
     </div>
   @endif
