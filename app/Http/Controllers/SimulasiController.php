@@ -128,39 +128,43 @@ class SimulasiController extends Controller
                 ->withInput();
         }
 
+        // return $jurusan_saintek1;
         if ($request->jurusan_saintek1) {
-            $simulasi = new Simulasi;
-            $simulasi->pilihan = '1';
-            $simulasi->program_studi = $request['program_studi_kode'];
-            $simulasi->matematika = $request['matematika'];
-            $simulasi->fisika = $request['fisika'];
-            $simulasi->kimia = $request['kimia'];
-            $simulasi->biologi = $request['biologi'];
-            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
-            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
-            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
-            $simulasi->k_kuantitatif = $request['k_kuantitatif_saintek'];
-            $simulasi->jurusan_kode = $request['jurusan_saintek1'];
-            $simulasi->hasil = PerhitunganController::saintek($request);
-            $simulasi->user_id = $thisUser->id;
-            $simulasi->save();
+            $simulasi_a1 = NULL;
+            $simulasi_a1 = new Simulasi;
+            $simulasi_a1->pilihan = '1';
+            $simulasi_a1->program_studi = $request['program_studi_kode'];
+            $simulasi_a1->matematika = $request['matematika'];
+            $simulasi_a1->fisika = $request['fisika'];
+            $simulasi_a1->kimia = $request['kimia'];
+            $simulasi_a1->biologi = $request['biologi'];
+            $simulasi_a1->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
+            $simulasi_a1->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
+            $simulasi_a1->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
+            $simulasi_a1->k_kuantitatif = $request['k_kuantitatif_saintek'];
+            $simulasi_a1->jurusan_kode = $request['jurusan_saintek1'];
+            $simulasi_a1->hasil = PerhitunganController::saintek1($request, $simulasi_a1);
+            $simulasi_a1->user_id = $thisUser->id;
+            $simulasi_a1->save();
         }
+        // return $simulasi_a1;
         if ($request->jurusan_saintek2) {
-            $simulasi = new Simulasi;
-            $simulasi->pilihan = '2';
-            $simulasi->program_studi = $request['program_studi_kode'];
-            $simulasi->matematika = $request['matematika'];
-            $simulasi->fisika = $request['fisika'];
-            $simulasi->kimia = $request['kimia'];
-            $simulasi->biologi = $request['biologi'];
-            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
-            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
-            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
-            $simulasi->k_kuantitatif = $request['k_kuantitatif_saintek'];
-            $simulasi->jurusan_kode = $request['jurusan_saintek2'];
-            $simulasi->hasil = PerhitunganController::saintek();
-            $simulasi->user_id = $thisUser->id;
-            $simulasi->save();
+            $simulasi_a1 = "Bodo";
+            $simulasi_a2 = new Simulasi;
+            $simulasi_a2->pilihan = '2';
+            $simulasi_a2->program_studi = $request['program_studi_kode'];
+            $simulasi_a2->matematika = $request['matematika'];
+            $simulasi_a2->fisika = $request['fisika'];
+            $simulasi_a2->kimia = $request['kimia'];
+            $simulasi_a2->biologi = $request['biologi'];
+            $simulasi_a2->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
+            $simulasi_a2->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
+            $simulasi_a2->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
+            $simulasi_a2->k_kuantitatif = $request['k_kuantitatif_saintek'];
+            $simulasi_a2->jurusan_kode = $request['jurusan_saintek2'];
+            $simulasi_a2->hasil = PerhitunganController::saintek1($request, $simulasi_a1);
+            $simulasi_a2->user_id = $thisUser->id;
+            $simulasi_a2->save();
         }
         if ($request->jurusan_soshum1) {
             $simulasi = new Simulasi;
@@ -176,7 +180,7 @@ class SimulasiController extends Controller
             $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_soshum'];
             $simulasi->k_kuantitatif = $request['k_kuantitatif_soshum'];
             $simulasi->jurusan_kode = $request['jurusan_soshum1'];
-            $simulasi->hasil = PerhitunganController::soshum();
+            $simulasi->hasil = PerhitunganController::soshum($request);
             $simulasi->user_id = $thisUser->id;
             $simulasi->save();
         }
@@ -194,7 +198,7 @@ class SimulasiController extends Controller
             $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_soshum'];
             $simulasi->k_kuantitatif = $request['k_kuantitatif_soshum'];
             $simulasi->jurusan_kode = $request['jurusan_soshum2'];
-            $simulasi->hasil = PerhitunganController::soshum();
+            $simulasi->hasil = PerhitunganController::soshum($request);
             $simulasi->user_id = $thisUser->id;
             $simulasi->save();
         }

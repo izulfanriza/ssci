@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PerhitunganController extends Controller
 {
 
-    public static function saintek($request)
+    public static function saintek1($request, $jurusan_saintek1)
     {
 
         $k_penalaran_umum_kes_a = 0.3*$request->k_penalaran_umum_saintek;
@@ -85,7 +85,8 @@ class PerhitunganController extends Controller
         $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
         $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
 
-        if ($request->jurusan_saintek1) {
+        if (empty($simulasi_a1)) {
+            // return "lolos";
             $jurusan_pilih = DB::table('jurusans')
             ->select('jurusans.*')
             ->where('jurusans.kode','=',$request->jurusan_saintek1)
@@ -151,10 +152,12 @@ class PerhitunganController extends Controller
                 if ($jurusan_pilih->cluster_kode == 'kosong') {
                     $hasil = "cluster_kosong";
                 }
+                return $hasil;
             }
         }
         
-        if ($request->jurusan_saintek2) {
+        if ($simulasi_a1) {
+            // return "hai";
             $jurusan_pilih = DB::table('jurusans')
             ->select('jurusans.*')
             ->where('jurusans.kode','=',$request->jurusan_saintek2)
@@ -220,10 +223,154 @@ class PerhitunganController extends Controller
                 if ($jurusan_pilih->cluster_kode == 'kosong') {
                     $hasil = "cluster_kosong";
                 }
+                return $hasil;
             }
         }
         
-        return $hasil;
+        // return $hasil;
+    }
+    public static function saintek2($request)
+    {
+
+        $k_penalaran_umum_kes_a = 0.3*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_kes_b = 0.3*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_tek_a = 0.3*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_tek_b = 0.3*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_mipa_a = 0.25*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_mipa_b = 0.25*$request->k_penalaran_umum_saintek;
+        $k_penalaran_umum_mipa_c = 0.25*$request->k_penalaran_umum_saintek;
+
+        $k_kuantitatif_kes_a = 0.2*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_kes_b = 0.2*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_tek_a = 0.25*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_tek_b = 0.25*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_mipa_a = 0.3*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_mipa_b = 0.3*$request->k_kuantitatif_saintek;
+        $k_kuantitatif_mipa_c = 0.2*$request->k_kuantitatif_saintek;
+
+        $peng_dan_pemahaman_umum_kes_a = 0.3*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_kes_b = 0.3*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_tek_a = 0.25*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_tek_b = 0.25*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_mipa_a = 0.25*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_mipa_b = 0.2*$request->peng_dan_pemahaman_umum_saintek;
+        $peng_dan_pemahaman_umum_mipa_c = 0.3*$request->peng_dan_pemahaman_umum_saintek;
+
+        $m_bacaan_dan_menulis_kes_a = 0.2*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_kes_b = 0.2*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_tek_a = 0.2*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_tek_b = 0.2*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_mipa_a = 0.2*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_mipa_b = 0.25*$request->m_bacaan_dan_menulis_saintek;
+        $m_bacaan_dan_menulis_mipa_c = 0.25*$request->m_bacaan_dan_menulis_saintek;
+
+        $matematika_kes_a = 0.15*$request->matematika;
+        $matematika_kes_b = 0.15*$request->matematika;
+        $matematika_tek_a = 0.3*$request->matematika;
+        $matematika_tek_b = 0.35*$request->matematika;
+        $matematika_mipa_a = 0.35*$request->matematika;
+        $matematika_mipa_b = 0.25*$request->matematika;
+        $matematika_mipa_c = 0.15*$request->matematika;
+
+        $fisika_kes_a = 0.15*$request->fisika;
+        $fisika_kes_b = 0.15*$request->fisika;
+        $fisika_tek_a = 0.4*$request->fisika;
+        $fisika_tek_b = 0.3*$request->fisika;
+        $fisika_mipa_a = 0.35*$request->fisika;
+        $fisika_mipa_b = 0.25*$request->fisika;
+        $fisika_mipa_c = 0.15*$request->fisika;
+        
+        $kimia_kes_a = 0.3*$request->kimia;
+        $kimia_kes_b = 0.4*$request->kimia;
+        $kimia_tek_a = 0.15*$request->kimia;
+        $kimia_tek_b = 0.2*$request->kimia;
+        $kimia_mipa_a = 0.15*$request->kimia;
+        $kimia_mipa_b = 0.3*$request->kimia;
+        $kimia_mipa_c = 0.35*$request->kimia;
+
+        $biologi_kes_a = 0.4*$request->biologi;
+        $biologi_kes_b = 0.3*$request->biologi;
+        $biologi_tek_a = 0.15*$request->biologi;
+        $biologi_tek_b = 0.15*$request->biologi;
+        $biologi_mipa_a = 0.15*$request->biologi;
+        $biologi_mipa_b = 0.2*$request->biologi;
+        $biologi_mipa_c = 0.35*$request->biologi;
+
+        $kes_a = ($k_penalaran_umum_kes_a+$k_kuantitatif_kes_a+$peng_dan_pemahaman_umum_kes_a+$m_bacaan_dan_menulis_kes_a)*0.6+($matematika_kes_a+$fisika_kes_a+$kimia_kes_a+$biologi_kes_a)*0.4;
+        $kes_b = ($k_penalaran_umum_kes_b+$k_kuantitatif_kes_b+$peng_dan_pemahaman_umum_kes_b+$m_bacaan_dan_menulis_kes_b)*0.6+($matematika_kes_b+$fisika_kes_b+$kimia_kes_b+$biologi_kes_b)*0.4;
+        $tek_a = ($k_penalaran_umum_tek_a+$k_kuantitatif_tek_a+$peng_dan_pemahaman_umum_tek_a+$m_bacaan_dan_menulis_tek_a)*0.6+($matematika_tek_a+$fisika_tek_a+$kimia_tek_a+$biologi_tek_a)*0.4;
+        $tek_b = ($k_penalaran_umum_tek_b+$k_kuantitatif_tek_b+$peng_dan_pemahaman_umum_tek_b+$m_bacaan_dan_menulis_tek_b)*0.6+($matematika_tek_b+$fisika_tek_b+$kimia_tek_b+$biologi_tek_b)*0.4;
+        $mipa_a = ($k_penalaran_umum_mipa_a+$k_kuantitatif_mipa_a+$peng_dan_pemahaman_umum_mipa_a+$m_bacaan_dan_menulis_mipa_a)*0.6+($matematika_mipa_a+$fisika_mipa_a+$kimia_mipa_a+$biologi_mipa_a)*0.4;
+        $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
+        $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
+
+        $jurusan_pilih = DB::table('jurusans')
+        ->select('jurusans.*')
+        ->where('jurusans.kode','=',$request->jurusan_saintek1)
+        ->get();
+
+        foreach ($jurusan_pilih as $key => $jurusan_pilih) {
+            if ($jurusan_pilih->cluster_kode == 'KES-A') {
+                if ($jurusan_pilih->nilai_perhitungan <= $kes_a) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $kes_a) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'KES-B') {
+                if ($jurusan_pilih->nilai_perhitungan <= $kes_b) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $kes_b) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'MIPA-A') {
+                if ($jurusan_pilih->nilai_perhitungan <= $mipa_a) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $mipa_a) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'MIPA-B') {
+                if ($jurusan_pilih->nilai_perhitungan <= $mipa_b) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $mipa_b) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'TEK-A') {
+                if ($jurusan_pilih->nilai_perhitungan <= $tek_a) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $tek_a) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'TEK-B') {
+                if ($jurusan_pilih->nilai_perhitungan <= $tek_b) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $tek_b) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'TEK-C') {
+                if ($jurusan_pilih->nilai_perhitungan <= $tek_c) {
+                    $hasil = 'lolos';
+                }
+                else if ($jurusan_pilih->nilai_perhitungan > $tek_c) {
+                    $hasil = 'tidaklolos';
+                }
+            }
+            if ($jurusan_pilih->cluster_kode == 'kosong') {
+                $hasil = "cluster_kosong";
+            }
+            return $hasil;
+        }
     }
 
     public static function soshum($request)
@@ -426,7 +573,6 @@ class PerhitunganController extends Controller
     public static function findUniversitas1(Request $request)
     {
         $data = Jurusan::select('nama', 'kode')->where('universitas_kode', $request->kode)->where('program_studi_kode', $request->jenis_program_studi)->where('cluster_kode','!=','kosong')->take(100)->get();
-        return $data;
         return response()->json($data);
     }
 }
