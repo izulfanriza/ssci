@@ -130,7 +130,7 @@ class SimulasiController extends Controller
 
         // return $jurusan_saintek1;
         if ($request->jurusan_saintek1) {
-            $simulasi_a1 = NULL;
+            $jurusan_saintek = "satu";
             $simulasi_a1 = new Simulasi;
             $simulasi_a1->pilihan = '1';
             $simulasi_a1->program_studi = $request['program_studi_kode'];
@@ -143,13 +143,13 @@ class SimulasiController extends Controller
             $simulasi_a1->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
             $simulasi_a1->k_kuantitatif = $request['k_kuantitatif_saintek'];
             $simulasi_a1->jurusan_kode = $request['jurusan_saintek1'];
-            $simulasi_a1->hasil = PerhitunganController::saintek1($request, $simulasi_a1);
+            $simulasi_a1->hasil = PerhitunganController::saintek1($request, $jurusan_saintek);
             $simulasi_a1->user_id = $thisUser->id;
             $simulasi_a1->save();
         }
         // return $simulasi_a1;
         if ($request->jurusan_saintek2) {
-            $simulasi_a1 = "Bodo";
+            $jurusan_saintek = "dua";
             $simulasi_a2 = new Simulasi;
             $simulasi_a2->pilihan = '2';
             $simulasi_a2->program_studi = $request['program_studi_kode'];
@@ -162,7 +162,7 @@ class SimulasiController extends Controller
             $simulasi_a2->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
             $simulasi_a2->k_kuantitatif = $request['k_kuantitatif_saintek'];
             $simulasi_a2->jurusan_kode = $request['jurusan_saintek2'];
-            $simulasi_a2->hasil = PerhitunganController::saintek1($request, $simulasi_a1);
+            $simulasi_a2->hasil = PerhitunganController::saintek1($request, $jurusan_saintek);
             $simulasi_a2->user_id = $thisUser->id;
             $simulasi_a2->save();
         }

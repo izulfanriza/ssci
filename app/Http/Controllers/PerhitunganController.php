@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PerhitunganController extends Controller
 {
 
-    public static function saintek1($request, $jurusan_saintek1)
+    public static function saintek1($request, $jurusan_saintek)
     {
 
         $k_penalaran_umum_kes_a = 0.3*$request->k_penalaran_umum_saintek;
@@ -85,7 +85,7 @@ class PerhitunganController extends Controller
         $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
         $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
 
-        if (empty($simulasi_a1)) {
+        if ($jurusan_saintek == 'satu') {
             // return "lolos";
             $jurusan_pilih = DB::table('jurusans')
             ->select('jurusans.*')
@@ -156,7 +156,7 @@ class PerhitunganController extends Controller
             }
         }
         
-        if ($simulasi_a1) {
+        if ($jurusan_saintek == 'dua') {
             // return "hai";
             $jurusan_pilih = DB::table('jurusans')
             ->select('jurusans.*')
