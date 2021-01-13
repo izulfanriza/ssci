@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App\Models\Jurusan;
+use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
 {
@@ -419,5 +421,12 @@ class PerhitunganController extends Controller
         }
         
         return $hasil;
+    }
+
+    public static function findUniversitas1(Request $request)
+    {
+        $data = Jurusan::select('nama', 'kode')->where('universitas_kode', $request->kode)->where('program_studi_kode', $request->jenis_program_studi)->where('cluster_kode','!=','kosong')->take(100)->get();
+        return $data;
+        return response()->json($data);
     }
 }

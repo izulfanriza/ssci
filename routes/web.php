@@ -15,6 +15,7 @@ use App\Http\Controllers\HasilTryoutSiswaController;
 use App\Http\Controllers\SimulasiController;
 use App\Http\Controllers\UpgradeController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PerhitunganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +73,4 @@ Route::group(['middleware' => ['web', 'auth', 'siswabiasa', ]], function () {
 });
 // semua user
 Route::resource('profil', ProfilController::class);
+Route::get('finduniversitas1', [PerhitunganController::class, 'findUniversitas1']);

@@ -315,7 +315,7 @@
         var op = " ";
         $.ajax({
             type: 'get',
-            url: '{!!URL::to('hasiltryoutsiswa/finduniversitas')!!}',
+            url: '{!!URL::to('finduniversitas1')!!}',
             data: {'kode':universitas_kode, 'jenis_program_studi':jenis_program_studi},
             success: function(data){
                 // alert(data);
@@ -338,7 +338,7 @@
         var op = " ";
         $.ajax({
             type: 'get',
-            url: '{!!URL::to('hasiltryoutsiswa/finduniversitas')!!}',
+            url: '{!!URL::to('finduniversitas1')!!}',
             data: {'kode':universitas_kode, 'jenis_program_studi':jenis_program_studi},
             success: function(data){
                 // alert(data);
@@ -361,7 +361,7 @@
         var op = " ";
         $.ajax({
             type: 'get',
-            url: '{!!URL::to('hasiltryoutsiswa/finduniversitas')!!}',
+            url: '{!!URL::to('finduniversitas1')!!}',
             data: {'kode':universitas_kode, 'jenis_program_studi':jenis_program_studi},
             success: function(data){
                 // alert(data);
@@ -384,7 +384,7 @@
         var op = " ";
         $.ajax({
             type: 'get',
-            url: '{!!URL::to('hasiltryoutsiswa/finduniversitas')!!}',
+            url: '{!!URL::to('finduniversitas1')!!}',
             data: {'kode':universitas_kode, 'jenis_program_studi':jenis_program_studi},
             success: function(data){
                 // alert(data);
