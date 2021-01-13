@@ -179,4 +179,13 @@ class JurusanController extends Controller
         Alert::success('Success', 'Berhasil Menghapus Data');
         return back();
     }
+
+    public static function saintek()
+    {
+        return "lolos";
+    }
+    public static function soshum()
+    {
+        return "tidaklolos";
+    }
 }

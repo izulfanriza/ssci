@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cluster;
-
+use App\Http\Controllers\PerhitunganController;
 use App\Models\Simulasi;
 use Illuminate\Support\Facades\DB;
 use App\Models\Universitas;
 use Auth;
+use Alert;
+use Validator;
 use Illuminate\Http\Request;
 
 class SimulasiController extends Controller
@@ -38,9 +40,41 @@ class SimulasiController extends Controller
      */
     public function create()
     {
-        $universitas = Universitas::all();
-        return view('simulasi.create',array())
-        ->with('universitas',$universitas);
+        $thisUser = Auth::user();
+        if ($thisUser->role != 'siswabiasa') { 
+            $universitas_a1 = Universitas::all();
+            $universitas_a2 = Universitas::all();
+            $universitas_o1 = Universitas::all();
+            $universitas_o2 = Universitas::all();
+            return view('simulasi.create',array())
+            ->with('universitas_a1',$universitas_a1)
+            ->with('universitas_a2',$universitas_a2)
+            ->with('universitas_o1',$universitas_o1)
+            ->with('universitas_o2',$universitas_o2);
+        }
+        if ($thisUser->role == 'siswabiasa') {
+
+            $simulasi = DB::table('simulasi_manuals')
+            ->where('simulasi_manuals.user_id','=',$thisUser->id)
+            ->get();
+
+            $jmlSimulasi = count($simulasi);
+
+            if ($jmlSimulasi < 6) {
+                $universitas_a1 = Universitas::all();
+                $universitas_a2 = Universitas::all();
+                $universitas_o1 = Universitas::all();
+                $universitas_o2 = Universitas::all();
+                return view('simulasi.create',array())
+                ->with('universitas_a1',$universitas_a1)
+                ->with('universitas_a2',$universitas_a2)
+                ->with('universitas_o1',$universitas_o1)
+                ->with('universitas_o2',$universitas_o2);
+            }
+            if ($jmlSimulasi >= 6) {
+                return view('simulasi.create-max');
+            }
+        }
     }
 
     /**
@@ -51,7 +85,122 @@ class SimulasiController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        $thisUser = Auth::user();
+
+        if ($request->program_studi_kode == 'saintek') {
+            $validator = Validator::make($request->all(), [
+                'program_studi_kode' => ['required', 'string', 'max:255'],
+                'matematika' => ['required', 'string', 'max:255',],
+                'fisika' => ['required', 'string', 'max:255',],
+                'kimia' => ['required', 'string', 'max:255',],
+                'biologi' => ['required', 'string', 'max:255',],
+                'k_penalaran_umum_saintek' => ['required', 'string', 'max:255',],
+                'm_bacaan_dan_menulis_saintek' => ['required', 'string', 'max:255',],
+                'peng_dan_pemahaman_umum_saintek' => ['required', 'string', 'max:255',],
+                'k_kuantitatif_saintek' => ['required', 'string', 'max:255',],
+                'universitas_saintek1' => ['required', 'string', 'max:255',],
+                'jurusan_saintek1' => ['required', 'string', 'max:255',],
+                'universitas_saintek2' => ['required', 'string', 'max:255',],
+                'jurusan_saintek2' => ['required', 'string', 'max:255',],
+            ]);
+        }
+        if ($request->program_studi_kode == 'soshum') {
+            $validator = Validator::make($request->all(), [
+                'program_studi_kode' => ['required', 'string', 'max:255'],
+                'matematika_soshum' => ['required', 'string', 'max:255',],
+                'ekonomi' => ['required', 'string', 'max:255',],
+                'geografi' => ['required', 'string', 'max:255',],
+                'sosiologi' => ['required', 'string', 'max:255',],
+                'sejarah' => ['required', 'string', 'max:255',],
+                'k_penalaran_umum_soshum' => ['required', 'string', 'max:255',],
+                'm_bacaan_dan_menulis_soshum' => ['required', 'string', 'max:255',],
+                'peng_dan_pemahaman_umum_soshum' => ['required', 'string', 'max:255',],
+                'k_kuantitatif_soshum' => ['required', 'string', 'max:255',],
+                'universitas_soshum1' => ['required', 'string', 'max:255',],
+                'jurusan_soshum1' => ['required', 'string', 'max:255',],
+                'universitas_soshum2' => ['required', 'string', 'max:255',],
+                'jurusan_soshum2' => ['required', 'string', 'max:255',],
+            ]);
+        }
+        if ($validator->fails()) {
+            return redirect('simulasi/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if ($request->jurusan_saintek1) {
+            $simulasi = new Simulasi;
+            $simulasi->pilihan = '1';
+            $simulasi->program_studi = $request['program_studi_kode'];
+            $simulasi->matematika = $request['matematika'];
+            $simulasi->fisika = $request['fisika'];
+            $simulasi->kimia = $request['kimia'];
+            $simulasi->biologi = $request['biologi'];
+            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
+            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
+            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
+            $simulasi->k_kuantitatif = $request['k_kuantitatif_saintek'];
+            $simulasi->jurusan_kode = $request['jurusan_saintek1'];
+            $simulasi->hasil = PerhitunganController::saintek($request);
+            $simulasi->user_id = $thisUser->id;
+            $simulasi->save();
+        }
+        if ($request->jurusan_saintek2) {
+            $simulasi = new Simulasi;
+            $simulasi->pilihan = '2';
+            $simulasi->program_studi = $request['program_studi_kode'];
+            $simulasi->matematika = $request['matematika'];
+            $simulasi->fisika = $request['fisika'];
+            $simulasi->kimia = $request['kimia'];
+            $simulasi->biologi = $request['biologi'];
+            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_saintek'];
+            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_saintek'];
+            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_saintek'];
+            $simulasi->k_kuantitatif = $request['k_kuantitatif_saintek'];
+            $simulasi->jurusan_kode = $request['jurusan_saintek2'];
+            $simulasi->hasil = PerhitunganController::saintek();
+            $simulasi->user_id = $thisUser->id;
+            $simulasi->save();
+        }
+        if ($request->jurusan_soshum1) {
+            $simulasi = new Simulasi;
+            $simulasi->pilihan = '1';
+            $simulasi->program_studi = $request['program_studi_kode'];
+            $simulasi->matematika = $request['matematika_soshum'];
+            $simulasi->geografi = $request['geografi'];
+            $simulasi->ekonomi = $request['ekonomi'];
+            $simulasi->sosiologi = $request['sosiologi'];
+            $simulasi->sejarah = $request['sejarah'];
+            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_soshum'];
+            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_soshum'];
+            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_soshum'];
+            $simulasi->k_kuantitatif = $request['k_kuantitatif_soshum'];
+            $simulasi->jurusan_kode = $request['jurusan_soshum1'];
+            $simulasi->hasil = PerhitunganController::soshum();
+            $simulasi->user_id = $thisUser->id;
+            $simulasi->save();
+        }
+        if ($request->jurusan_soshum2) {
+            $simulasi = new Simulasi;
+            $simulasi->pilihan = '1';
+            $simulasi->program_studi = $request['program_studi_kode'];
+            $simulasi->matematika = $request['matematika_soshum'];
+            $simulasi->geografi = $request['geografi'];
+            $simulasi->ekonomi = $request['ekonomi'];
+            $simulasi->sosiologi = $request['sosiologi'];
+            $simulasi->sejarah = $request['sejarah'];
+            $simulasi->k_penalaran_umum = $request['k_penalaran_umum_soshum'];
+            $simulasi->m_bacaan_menulis = $request['m_bacaan_dan_menulis_soshum'];
+            $simulasi->peng_pengetahuan_umum = $request['peng_dan_pemahaman_umum_soshum'];
+            $simulasi->k_kuantitatif = $request['k_kuantitatif_soshum'];
+            $simulasi->jurusan_kode = $request['jurusan_soshum2'];
+            $simulasi->hasil = PerhitunganController::soshum();
+            $simulasi->user_id = $thisUser->id;
+            $simulasi->save();
+        }
+
+        Alert::success('Success', 'Berhasil Menambah Data');
+        return redirect('simulasi');
     }
 
     /**

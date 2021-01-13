@@ -357,7 +357,7 @@ class HasilTryoutSiswaController extends Controller
     public function findUniversitas(Request $request)
     {
         // return $request;
-        $data = Jurusan::select('nama', 'kode')->where('universitas_kode', $request->kode)->where('program_studi_kode', $request->jenis_program_studi)->take(100)->get();
+        $data = Jurusan::select('nama', 'kode')->where('universitas_kode', $request->kode)->where('program_studi_kode', $request->jenis_program_studi)->where('cluster_kode','!=','kosong')->take(100)->get();
         return response()->json($data);
     }
 
