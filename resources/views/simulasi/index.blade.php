@@ -24,7 +24,7 @@
               <th>Jurusan</th>
               <th>Prioritas</th>
               <th style="width: 20%">Hasil</th>
-              <th>Aksi</th>
+              <th>Lihat Rekomendasi</th>
             </tr>
             </thead>
             <tbody>
@@ -37,21 +37,36 @@
                   @if ($simulasi->hasil == 'lolos')<span class="badge bg-success">Lolos</span>@endif
                   @if($simulasi->hasil == 'tidaklolos')
                     <span class="badge bg-danger">Tidak Lolos</span> &nbsp;
-                    <a href="{{ route('simulasi.rekomendasi', $simulasi->id) }}">
+                    {{-- <a href="{{ route('simulasi.rekomendasi', $simulasi->id) }}">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-info">Lihat Rekomendasi</button>
+                        <button type="button" class="btn btn-sm btn-info">Dapatkan Rekomendasi</button>
                       </div>
-                    </a>
+                    </a> --}}
+                  @endif
+                  @if($simulasi->hasil == 'tidaklolos_terekomendasi')
+                    <span class="badge bg-danger">Tidak Lolos</span>
                   @endif
                 </td>
               <td>
-                <a href="{{ route('simulasi.show', $simulasi->id) }}">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-info">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                  </div>
-                </a>
+                @if($simulasi->hasil == 'tidaklolos_terekomendasi')
+                  <a href="{{ route('simulasi.show', $simulasi->id) }}">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-info">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
+                  </a>
+                @endif
+                @if($simulasi->hasil == 'tidaklolos')
+                  <a href="{{ route('simulasi.rekomendasi', $simulasi->id) }}">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-info">Dapatkan Rekomendasi</button>
+                    </div>
+                  </a>
+                @endif
+                @if($simulasi->hasil == 'lolos')
+                  -
+                @endif
               </td>
             </tr>
             @endforeach
@@ -62,7 +77,7 @@
                 <th>Jurusan</th>
                 <th>Prioritas</th>
                 <th>Hasil</th>
-                <th>Aksi</th>
+                <th>Lihat Rekomendasi</th>
               </tr>
             </tfoot>
           </table>

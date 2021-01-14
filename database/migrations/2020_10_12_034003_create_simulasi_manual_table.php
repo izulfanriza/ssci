@@ -29,7 +29,7 @@ class CreateSimulasiManualTable extends Migration
             $table->integer('m_bacaan_menulis')->nullable();
             $table->integer('peng_pengetahuan_umum')->nullable();
             $table->integer('k_kuantitatif')->nullable();
-            $table->enum('hasil', ['lolos', 'tidaklolos']);
+            $table->enum('hasil', ['lolos', 'tidaklolos', 'tidaklolos_terekomendasi']);
             $table->string('user_id');
             $table->string('jurusan_kode');
             $table->timestamps();
