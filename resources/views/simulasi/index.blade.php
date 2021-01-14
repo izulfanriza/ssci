@@ -35,15 +35,7 @@
                 <td>{{ $simulasi->pilihan }}</td>
                 <td>
                   @if ($simulasi->hasil == 'lolos')<span class="badge bg-success">Lolos</span>@endif
-                  @if($simulasi->hasil == 'tidaklolos')
-                    <span class="badge bg-danger">Tidak Lolos</span> &nbsp;
-                    {{-- <a href="{{ route('simulasi.rekomendasi', $simulasi->id) }}">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-info">Dapatkan Rekomendasi</button>
-                      </div>
-                    </a> --}}
-                  @endif
-                  @if($simulasi->hasil == 'tidaklolos_terekomendasi')
+                  @if($simulasi->hasil != 'lolos')
                     <span class="badge bg-danger">Tidak Lolos</span>
                   @endif
                 </td>

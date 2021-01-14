@@ -371,7 +371,7 @@ class PerhitunganController extends Controller
             ->get();
 
             foreach ($jurusan_pilih as $key => $jurusan_pilih) {
-                if ($jurusan_pilih->cluster_kode == 'KES-A') {
+                if ($jurusan_pilih->cluster_kode == 'EKO-A') {
                     if ($jurusan_pilih->nilai_perhitungan <= $eko_a) {
                         $hasil = 'lolos';
                     }
@@ -379,7 +379,7 @@ class PerhitunganController extends Controller
                         $hasil = 'tidaklolos';
                     }
                 }
-                if ($jurusan_pilih->cluster_kode == 'KES-B') {
+                if ($jurusan_pilih->cluster_kode == 'EKO-B') {
                     if ($jurusan_pilih->nilai_perhitungan <= $eko_b) {
                         $hasil = 'lolos';
                     }
@@ -747,6 +747,368 @@ class PerhitunganController extends Controller
                 ->get();
 
                 return $jurusan;
+            }
+        }
+    }
+    public static function rekomendasiTryout($simulasi)
+    {
+        foreach ($simulasi as $key => $simulasi) {
+            
+            if ($simulasi->program_studi == "saintek") {
+                if ($simulasi->mapel_kode == "k_penalaran_umum") {
+                    $k_penalaran_umum_kes_a = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_kes_b = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_tek_a = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_tek_b = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_mipa_a = 0.25*$simulasi->skor;
+                    $k_penalaran_umum_mipa_b = 0.25*$simulasi->skor;
+                    $k_penalaran_umum_mipa_c = 0.25*$simulasi->skor;
+                }
+
+                return $k_penalaran_umum_kes_a;
+                
+                if ($simulasi->mapel_kode == "k_kuantitatif") {
+                    $k_kuantitatif_kes_a = 0.2*$simulasi->skor;
+                    $k_kuantitatif_kes_b = 0.2*$simulasi->skor;
+                    $k_kuantitatif_tek_a = 0.25*$simulasi->skor;
+                    $k_kuantitatif_tek_b = 0.25*$simulasi->skor;
+                    $k_kuantitatif_mipa_a = 0.3*$simulasi->skor;
+                    $k_kuantitatif_mipa_b = 0.3*$simulasi->skor;
+                    $k_kuantitatif_mipa_c = 0.2*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "peng_dan_pemahaman_umum") {
+                    $peng_dan_pemahaman_umum_kes_a = 0.3*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_kes_b = 0.3*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_tek_a = 0.25*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_tek_b = 0.25*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_mipa_a = 0.25*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_mipa_b = 0.2*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_mipa_c = 0.3*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "m_bacaan_dan_menulis") {
+                    $m_bacaan_dan_menulis_kes_a = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_kes_b = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_tek_a = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_tek_b = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_mipa_a = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_mipa_b = 0.25*$simulasi->skor;
+                    $m_bacaan_dan_menulis_mipa_c = 0.25*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "matematika") {
+                    $matematika_kes_a = 0.15*$simulasi->skor;
+                    $matematika_kes_b = 0.15*$simulasi->skor;
+                    $matematika_tek_a = 0.3*$simulasi->skor;
+                    $matematika_tek_b = 0.35*$simulasi->skor;
+                    $matematika_mipa_a = 0.35*$simulasi->skor;
+                    $matematika_mipa_b = 0.25*$simulasi->skor;
+                    $matematika_mipa_c = 0.15*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "fisika") {
+                    $fisika_kes_a = 0.15*$simulasi->skor;
+                    $fisika_kes_b = 0.15*$simulasi->skor;
+                    $fisika_tek_a = 0.4*$simulasi->skor;
+                    $fisika_tek_b = 0.3*$simulasi->skor;
+                    $fisika_mipa_a = 0.35*$simulasi->skor;
+                    $fisika_mipa_b = 0.25*$simulasi->skor;
+                    $fisika_mipa_c = 0.15*$simulasi->skor;
+                }
+                
+                if ($simulasi->mapel_kode == "kimia") {
+                    $kimia_kes_a = 0.3*$simulasi->skor;
+                    $kimia_kes_b = 0.4*$simulasi->skor;
+                    $kimia_tek_a = 0.15*$simulasi->skor;
+                    $kimia_tek_b = 0.2*$simulasi->skor;
+                    $kimia_mipa_a = 0.15*$simulasi->skor;
+                    $kimia_mipa_b = 0.3*$simulasi->skor;
+                    $kimia_mipa_c = 0.35*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "biologi") {
+                    $biologi_kes_a = 0.4*$simulasi->skor;
+                    $biologi_kes_b = 0.3*$simulasi->skor;
+                    $biologi_tek_a = 0.15*$simulasi->skor;
+                    $biologi_tek_b = 0.15*$simulasi->skor;
+                    $biologi_mipa_a = 0.15*$simulasi->skor;
+                    $biologi_mipa_b = 0.2*$simulasi->skor;
+                    $biologi_mipa_c = 0.35*$simulasi->skor;
+                }
+
+                $kes_a = ($k_penalaran_umum_kes_a+$k_kuantitatif_kes_a+$peng_dan_pemahaman_umum_kes_a+$m_bacaan_dan_menulis_kes_a)*0.6+($matematika_kes_a+$fisika_kes_a+$kimia_kes_a+$biologi_kes_a)*0.4;
+                $kes_b = ($k_penalaran_umum_kes_b+$k_kuantitatif_kes_b+$peng_dan_pemahaman_umum_kes_b+$m_bacaan_dan_menulis_kes_b)*0.6+($matematika_kes_b+$fisika_kes_b+$kimia_kes_b+$biologi_kes_b)*0.4;
+                $tek_a = ($k_penalaran_umum_tek_a+$k_kuantitatif_tek_a+$peng_dan_pemahaman_umum_tek_a+$m_bacaan_dan_menulis_tek_a)*0.6+($matematika_tek_a+$fisika_tek_a+$kimia_tek_a+$biologi_tek_a)*0.4;
+                $tek_b = ($k_penalaran_umum_tek_b+$k_kuantitatif_tek_b+$peng_dan_pemahaman_umum_tek_b+$m_bacaan_dan_menulis_tek_b)*0.6+($matematika_tek_b+$fisika_tek_b+$kimia_tek_b+$biologi_tek_b)*0.4;
+                $mipa_a = ($k_penalaran_umum_mipa_a+$k_kuantitatif_mipa_a+$peng_dan_pemahaman_umum_mipa_a+$m_bacaan_dan_menulis_mipa_a)*0.6+($matematika_mipa_a+$fisika_mipa_a+$kimia_mipa_a+$biologi_mipa_a)*0.4;
+                $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
+                $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
+
+                $max = max($kes_a,$kes_b,$tek_a,$tek_b,$mipa_a,$mipa_b,$mipa_c);
+
+                if ($max == $kes_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','KES-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$kes_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $kes_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','KES-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$kes_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $tek_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','TEK-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$tek_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $tek_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','TEK-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$tek_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $mipa_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','MIPA-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$mipa_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $mipa_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','MIPA-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$mipa_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $mipa_c) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','MIPA-C')
+                    ->where('jurusans.nilai_perhitungan','<=',$mipa_c)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+            }
+
+            if ($simulasi->program_studi == "soshum") {
+                if ($simulasi->mapel_kode == "k_penalaran_umum") {
+                    $k_penalaran_umum_eko_a = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_eko_b = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_sos_a = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_sos_b = 0.3*$simulasi->skor;
+                    $k_penalaran_umum_bud_a = 0.2*$simulasi->skor;
+                    $k_penalaran_umum_bud_b = 0.2*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "k_kuantitatif") {
+                    $k_kuantitatif_eko_a = 0.3*$simulasi->skor;
+                    $k_kuantitatif_eko_b = 0.3*$simulasi->skor;
+                    $k_kuantitatif_sos_a = 0.2*$simulasi->skor;
+                    $k_kuantitatif_sos_b = 0.2*$simulasi->skor;
+                    $k_kuantitatif_bud_a = 0.2*$simulasi->skor;
+                    $k_kuantitatif_bud_b = 0.2*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "peng_dan_pemahaman_umum") {
+                    $peng_dan_pemahaman_umum_eko_a = 0.2*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_eko_b = 0.2*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_sos_a = 0.3*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_sos_b = 0.3*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_bud_a = 0.3*$simulasi->skor;
+                    $peng_dan_pemahaman_umum_bud_b = 0.3*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "m_bacaan_dan_menulis") {
+                    $m_bacaan_dan_menulis_eko_a = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_eko_b = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_sos_a = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_sos_b = 0.2*$simulasi->skor;
+                    $m_bacaan_dan_menulis_bud_a = 0.3*$simulasi->skor;
+                    $m_bacaan_dan_menulis_bud_b = 0.3*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "matematika") {
+                    $matematika_soshum_eko_a = 0.275*$simulasi->skor;
+                    $matematika_soshum_eko_b = 0.35*$simulasi->skor;
+                    $matematika_soshum_sos_a = 0.175*$simulasi->skor;
+                    $matematika_soshum_sos_b = 0.175*$simulasi->skor;
+                    $matematika_soshum_bud_a = 0.15*$simulasi->skor;
+                    $matematika_soshum_bud_b = 0.15*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "geografi") {
+                    $geografi_eko_a = 0.125*$simulasi->skor;
+                    $geografi_eko_b = 0.125*$simulasi->skor;
+                    $geografi_sos_a = 0.125*$simulasi->skor;
+                    $geografi_sos_b = 0.125*$simulasi->skor;
+                    $geografi_bud_a = 0.175*$simulasi->skor;
+                    $geografi_bud_b = 0.175*$simulasi->skor;
+                }
+                
+                if ($simulasi->mapel_kode == "sejarah") {
+                    $sejarah_eko_a = 0.125*$simulasi->skor;
+                    $sejarah_eko_b = 0.125*$simulasi->skor;
+                    $sejarah_sos_a = 0.25*$simulasi->skor;
+                    $sejarah_sos_b = 0.35*$simulasi->skor;
+                    $sejarah_bud_a = 0.35*$simulasi->skor;
+                    $sejarah_bud_b = 0.2*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "sosiologi") {
+                    $sosiologi_eko_a = 0.125*$simulasi->skor;
+                    $sosiologi_eko_b = 0.125*$simulasi->skor;
+                    $sosiologi_sos_a = 0.35*$simulasi->skor;
+                    $sosiologi_sos_b = 0.25*$simulasi->skor;
+                    $sosiologi_bud_a = 0.2*$simulasi->skor;
+                    $sosiologi_bud_b = 0.35*$simulasi->skor;
+                }
+
+                if ($simulasi->mapel_kode == "ekonomi") {
+                    $ekonomi_eko_a = 0.35*$simulasi->skor;
+                    $ekonomi_eko_b = 0.275*$simulasi->skor;
+                    $ekonomi_sos_a = 0.125*$simulasi->skor;
+                    $ekonomi_sos_b = 0.125*$simulasi->skor;
+                    $ekonomi_bud_a = 0.125*$simulasi->skor;
+                    $ekonomi_bud_b = 0.125*$simulasi->skor;
+                }
+
+                $eko_a = ($k_penalaran_umum_eko_a+$k_kuantitatif_eko_a+$peng_dan_pemahaman_umum_eko_a+$m_bacaan_dan_menulis_eko_a)*0.6+($matematika_soshum_eko_a+$geografi_eko_a+$sejarah_eko_a+$sosiologi_eko_a+$ekonomi_eko_a)*0.4;
+                $eko_b = ($k_penalaran_umum_eko_b+$k_kuantitatif_eko_b+$peng_dan_pemahaman_umum_eko_b+$m_bacaan_dan_menulis_eko_b)*0.6+($matematika_soshum_eko_b+$geografi_eko_b+$sejarah_eko_b+$sosiologi_eko_b+$ekonomi_eko_b)*0.4;
+                $sos_a = ($k_penalaran_umum_sos_a+$k_kuantitatif_sos_a+$peng_dan_pemahaman_umum_sos_a+$m_bacaan_dan_menulis_sos_a)*0.6+($matematika_soshum_sos_a+$geografi_sos_a+$sejarah_sos_a+$sosiologi_sos_a+$ekonomi_sos_a)*0.4;
+                $sos_b = ($k_penalaran_umum_sos_b+$k_kuantitatif_sos_b+$peng_dan_pemahaman_umum_sos_b+$m_bacaan_dan_menulis_sos_b)*0.6+($matematika_soshum_sos_b+$geografi_sos_b+$sejarah_sos_b+$sosiologi_sos_b+$ekonomi_sos_b)*0.4;
+                $bud_a = ($k_penalaran_umum_bud_a+$k_kuantitatif_bud_a+$peng_dan_pemahaman_umum_bud_a+$m_bacaan_dan_menulis_bud_a)*0.6+($matematika_soshum_bud_a+$geografi_bud_a+$sejarah_bud_a+$sosiologi_bud_a+$ekonomi_bud_a)*0.4;
+                $bud_b = ($k_penalaran_umum_bud_b+$k_kuantitatif_bud_b+$peng_dan_pemahaman_umum_bud_b+$m_bacaan_dan_menulis_bud_b)*0.6+($matematika_soshum_bud_b+$geografi_bud_b+$sejarah_bud_b+$sosiologi_bud_b+$ekonomi_bud_b)*0.4;
+
+                $max = max($eko_a,$eko_b,$sos_a,$sos_b,$bud_a,$bud_b);
+
+                if ($max == $eko_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','EKO-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$eko_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $eko_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','EKO-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$eko_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $sos_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','SOS-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$sos_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $sos_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','SOS-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$sos_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $bud_a) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','BUD-A')
+                    ->where('jurusans.nilai_perhitungan','<=',$bud_a)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
+                if ($max == $bud_b) {
+                    $jurusan = DB::table('jurusans')
+                    ->join('universitas','jurusans.universitas_kode','universitas.kode')
+                    ->select('jurusans.*', 'universitas.nama as nama_universitas')
+                    ->where('jurusans.cluster_kode','=','BUD-B')
+                    ->where('jurusans.nilai_perhitungan','<=',$bud_b)
+                    ->where('jurusans.prioritas','=',$simulasi->pilihan)
+                    ->orderBy('jurusans.nilai_perhitungan','asc')
+                    ->orderBy('jurusans.kuota','desc')
+                    ->get();
+
+                    return $jurusan;
+                }
             }
         }
     }

@@ -174,7 +174,6 @@ class HasilTryoutSiswaController extends Controller
 
     public function saveSimulasi(Request $request)
     {
-        // return "formula perhitungan belum dibuat, silahkan kembali";
         $validator = Validator::make($request->all(), [
             'jurusan' => ['required', 'string', 'max:255'],
             'prioritas' => ['required', 'string', 'max:255',],
@@ -194,154 +193,290 @@ class HasilTryoutSiswaController extends Controller
         ->where('jurusans.kode','=',$request->jurusan)
         ->get();
         
-        return $peserta;
-        if (condition) {
-            # code...
-        }
-        foreach ($nilai_tryout as $key => $nilai_tryout) {
-            if ($nilai_tryout->mapel_kode == 'k_penalaran_umum') {
-                $k_penalaran_umum_kes_a = 0.3*$nilai_tryout->skor;
-                $k_penalaran_umum_kes_b = 0.3*$nilai_tryout->skor;
-                $k_penalaran_umum_tek_a = 0.3*$nilai_tryout->skor;
-                $k_penalaran_umum_tek_b = 0.3*$nilai_tryout->skor;
-                $k_penalaran_umum_mipa_a = 0.25*$nilai_tryout->skor;
-                $k_penalaran_umum_mipa_b = 0.25*$nilai_tryout->skor;
-                $k_penalaran_umum_mipa_c = 0.25*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'k_kuantitatif') {
-                $k_kuantitatif_kes_a = 0.2*$nilai_tryout->skor;
-                $k_kuantitatif_kes_b = 0.2*$nilai_tryout->skor;
-                $k_kuantitatif_tek_a = 0.25*$nilai_tryout->skor;
-                $k_kuantitatif_tek_b = 0.25*$nilai_tryout->skor;
-                $k_kuantitatif_mipa_a = 0.3*$nilai_tryout->skor;
-                $k_kuantitatif_mipa_b = 0.3*$nilai_tryout->skor;
-                $k_kuantitatif_mipa_c = 0.2*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'peng_dan_pemahaman_umum') {
-                $peng_dan_pemahaman_umum_kes_a = 0.3*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_kes_b = 0.3*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_tek_a = 0.25*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_tek_b = 0.25*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_mipa_a = 0.25*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_mipa_b = 0.2*$nilai_tryout->skor;
-                $peng_dan_pemahaman_umum_mipa_c = 0.3*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'm_bacaan_dan_menulis') {
-                $m_bacaan_dan_menulis_kes_a = 0.2*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_kes_b = 0.2*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_tek_a = 0.2*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_tek_b = 0.2*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_mipa_a = 0.2*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_mipa_b = 0.25*$nilai_tryout->skor;
-                $m_bacaan_dan_menulis_mipa_c = 0.25*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'matematika') {
-                $matematika_kes_a = 0.15*$nilai_tryout->skor;
-                $matematika_kes_b = 0.15*$nilai_tryout->skor;
-                $matematika_tek_a = 0.3*$nilai_tryout->skor;
-                $matematika_tek_b = 0.35*$nilai_tryout->skor;
-                $matematika_mipa_a = 0.35*$nilai_tryout->skor;
-                $matematika_mipa_b = 0.25*$nilai_tryout->skor;
-                $matematika_mipa_c = 0.15*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'fisika') {
-                $fisika_kes_a = 0.15*$nilai_tryout->skor;
-                $fisika_kes_b = 0.15*$nilai_tryout->skor;
-                $fisika_tek_a = 0.4*$nilai_tryout->skor;
-                $fisika_tek_b = 0.3*$nilai_tryout->skor;
-                $fisika_mipa_a = 0.35*$nilai_tryout->skor;
-                $fisika_mipa_b = 0.25*$nilai_tryout->skor;
-                $fisika_mipa_c = 0.15*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'kimia') {
-                $kimia_kes_a = 0.3*$nilai_tryout->skor;
-                $kimia_kes_b = 0.4*$nilai_tryout->skor;
-                $kimia_tek_a = 0.15*$nilai_tryout->skor;
-                $kimia_tek_b = 0.2*$nilai_tryout->skor;
-                $kimia_mipa_a = 0.15*$nilai_tryout->skor;
-                $kimia_mipa_b = 0.3*$nilai_tryout->skor;
-                $kimia_mipa_c = 0.35*$nilai_tryout->skor;
-            }
-            if ($nilai_tryout->mapel_kode == 'biologi') {
-                $biologi_kes_a = 0.4*$nilai_tryout->skor;
-                $biologi_kes_b = 0.3*$nilai_tryout->skor;
-                $biologi_tek_a = 0.15*$nilai_tryout->skor;
-                $biologi_tek_b = 0.15*$nilai_tryout->skor;
-                $biologi_mipa_a = 0.15*$nilai_tryout->skor;
-                $biologi_mipa_b = 0.2*$nilai_tryout->skor;
-                $biologi_mipa_c = 0.35*$nilai_tryout->skor;
-            }
-        }
-        $kes_a = ($k_penalaran_umum_kes_a+$k_kuantitatif_kes_a+$peng_dan_pemahaman_umum_kes_a+$m_bacaan_dan_menulis_kes_a)*0.6+($matematika_kes_a+$fisika_kes_a+$kimia_kes_a+$biologi_kes_a)*0.4;
-        $kes_b = ($k_penalaran_umum_kes_b+$k_kuantitatif_kes_b+$peng_dan_pemahaman_umum_kes_b+$m_bacaan_dan_menulis_kes_b)*0.6+($matematika_kes_b+$fisika_kes_b+$kimia_kes_b+$biologi_kes_b)*0.4;
-        $tek_a = ($k_penalaran_umum_tek_a+$k_kuantitatif_tek_a+$peng_dan_pemahaman_umum_tek_a+$m_bacaan_dan_menulis_tek_a)*0.6+($matematika_tek_a+$fisika_tek_a+$kimia_tek_a+$biologi_tek_a)*0.4;
-        $tek_b = ($k_penalaran_umum_tek_b+$k_kuantitatif_tek_b+$peng_dan_pemahaman_umum_tek_b+$m_bacaan_dan_menulis_tek_b)*0.6+($matematika_tek_b+$fisika_tek_b+$kimia_tek_b+$biologi_tek_b)*0.4;
-        $mipa_a = ($k_penalaran_umum_mipa_a+$k_kuantitatif_mipa_a+$peng_dan_pemahaman_umum_mipa_a+$m_bacaan_dan_menulis_mipa_a)*0.6+($matematika_mipa_a+$fisika_mipa_a+$kimia_mipa_a+$biologi_mipa_a)*0.4;
-        $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
-        $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
 
         foreach ($jurusan_pilih as $key => $jurusan_pilih) {
-            if ($jurusan_pilih->cluster_kode == 'KES-A') {
-                if ($jurusan_pilih->nilai_perhitungan <= $kes_a) {
-                    $hasil = 'lolos';
+            // return $jurusan_pilih->program_studi_kode;
+            if ($jurusan_pilih->program_studi_kode == 'saintek') {
+                foreach ($nilai_tryout as $key => $nilai_tryout) {
+                    if ($nilai_tryout->mapel_kode == 'k_penalaran_umum') {
+                        $k_penalaran_umum_kes_a = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_kes_b = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_tek_a = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_tek_b = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_mipa_a = 0.25*$nilai_tryout->skor;
+                        $k_penalaran_umum_mipa_b = 0.25*$nilai_tryout->skor;
+                        $k_penalaran_umum_mipa_c = 0.25*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'k_kuantitatif') {
+                        $k_kuantitatif_kes_a = 0.2*$nilai_tryout->skor;
+                        $k_kuantitatif_kes_b = 0.2*$nilai_tryout->skor;
+                        $k_kuantitatif_tek_a = 0.25*$nilai_tryout->skor;
+                        $k_kuantitatif_tek_b = 0.25*$nilai_tryout->skor;
+                        $k_kuantitatif_mipa_a = 0.3*$nilai_tryout->skor;
+                        $k_kuantitatif_mipa_b = 0.3*$nilai_tryout->skor;
+                        $k_kuantitatif_mipa_c = 0.2*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'peng_dan_pemahaman_umum') {
+                        $peng_dan_pemahaman_umum_kes_a = 0.3*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_kes_b = 0.3*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_tek_a = 0.25*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_tek_b = 0.25*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_mipa_a = 0.25*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_mipa_b = 0.2*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_mipa_c = 0.3*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'm_bacaan_dan_menulis') {
+                        $m_bacaan_dan_menulis_kes_a = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_kes_b = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_tek_a = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_tek_b = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_mipa_a = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_mipa_b = 0.25*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_mipa_c = 0.25*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'matematika') {
+                        $matematika_kes_a = 0.15*$nilai_tryout->skor;
+                        $matematika_kes_b = 0.15*$nilai_tryout->skor;
+                        $matematika_tek_a = 0.3*$nilai_tryout->skor;
+                        $matematika_tek_b = 0.35*$nilai_tryout->skor;
+                        $matematika_mipa_a = 0.35*$nilai_tryout->skor;
+                        $matematika_mipa_b = 0.25*$nilai_tryout->skor;
+                        $matematika_mipa_c = 0.15*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'fisika') {
+                        $fisika_kes_a = 0.15*$nilai_tryout->skor;
+                        $fisika_kes_b = 0.15*$nilai_tryout->skor;
+                        $fisika_tek_a = 0.4*$nilai_tryout->skor;
+                        $fisika_tek_b = 0.3*$nilai_tryout->skor;
+                        $fisika_mipa_a = 0.35*$nilai_tryout->skor;
+                        $fisika_mipa_b = 0.25*$nilai_tryout->skor;
+                        $fisika_mipa_c = 0.15*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'kimia') {
+                        $kimia_kes_a = 0.3*$nilai_tryout->skor;
+                        $kimia_kes_b = 0.4*$nilai_tryout->skor;
+                        $kimia_tek_a = 0.15*$nilai_tryout->skor;
+                        $kimia_tek_b = 0.2*$nilai_tryout->skor;
+                        $kimia_mipa_a = 0.15*$nilai_tryout->skor;
+                        $kimia_mipa_b = 0.3*$nilai_tryout->skor;
+                        $kimia_mipa_c = 0.35*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'biologi') {
+                        $biologi_kes_a = 0.4*$nilai_tryout->skor;
+                        $biologi_kes_b = 0.3*$nilai_tryout->skor;
+                        $biologi_tek_a = 0.15*$nilai_tryout->skor;
+                        $biologi_tek_b = 0.15*$nilai_tryout->skor;
+                        $biologi_mipa_a = 0.15*$nilai_tryout->skor;
+                        $biologi_mipa_b = 0.2*$nilai_tryout->skor;
+                        $biologi_mipa_c = 0.35*$nilai_tryout->skor;
+                    }
                 }
-                else if ($jurusan_pilih->nilai_perhitungan > $kes_a) {
-                    $hasil = 'tidaklolos';
+                $kes_a = ($k_penalaran_umum_kes_a+$k_kuantitatif_kes_a+$peng_dan_pemahaman_umum_kes_a+$m_bacaan_dan_menulis_kes_a)*0.6+($matematika_kes_a+$fisika_kes_a+$kimia_kes_a+$biologi_kes_a)*0.4;
+                $kes_b = ($k_penalaran_umum_kes_b+$k_kuantitatif_kes_b+$peng_dan_pemahaman_umum_kes_b+$m_bacaan_dan_menulis_kes_b)*0.6+($matematika_kes_b+$fisika_kes_b+$kimia_kes_b+$biologi_kes_b)*0.4;
+                $tek_a = ($k_penalaran_umum_tek_a+$k_kuantitatif_tek_a+$peng_dan_pemahaman_umum_tek_a+$m_bacaan_dan_menulis_tek_a)*0.6+($matematika_tek_a+$fisika_tek_a+$kimia_tek_a+$biologi_tek_a)*0.4;
+                $tek_b = ($k_penalaran_umum_tek_b+$k_kuantitatif_tek_b+$peng_dan_pemahaman_umum_tek_b+$m_bacaan_dan_menulis_tek_b)*0.6+($matematika_tek_b+$fisika_tek_b+$kimia_tek_b+$biologi_tek_b)*0.4;
+                $mipa_a = ($k_penalaran_umum_mipa_a+$k_kuantitatif_mipa_a+$peng_dan_pemahaman_umum_mipa_a+$m_bacaan_dan_menulis_mipa_a)*0.6+($matematika_mipa_a+$fisika_mipa_a+$kimia_mipa_a+$biologi_mipa_a)*0.4;
+                $mipa_b = ($k_penalaran_umum_mipa_b+$k_kuantitatif_mipa_b+$peng_dan_pemahaman_umum_mipa_b+$m_bacaan_dan_menulis_mipa_b)*0.6+($matematika_mipa_b+$fisika_mipa_b+$kimia_mipa_b+$biologi_mipa_b)*0.4;
+                $mipa_c = ($k_penalaran_umum_mipa_c+$k_kuantitatif_mipa_c+$peng_dan_pemahaman_umum_mipa_c+$m_bacaan_dan_menulis_mipa_c)*0.6+($matematika_mipa_c+$fisika_mipa_c+$kimia_mipa_c+$biologi_mipa_c)*0.4;
+    
+                
+                if ($jurusan_pilih->cluster_kode == 'KES-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $kes_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $kes_a) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'KES-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $kes_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $kes_b) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'MIPA-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $mipa_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $mipa_a) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'MIPA-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $mipa_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $mipa_b) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'TEK-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $tek_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $tek_a) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'TEK-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $tek_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $tek_b) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'TEK-C') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $tek_c) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $tek_c) {
+                        $hasil = 'tidaklolos';
+                    }
+                }
+                if ($jurusan_pilih->cluster_kode == 'kosong') {
+                    $hasil = "cluster_kosong";
                 }
             }
-            if ($jurusan_pilih->cluster_kode == 'KES-B') {
-                if ($jurusan_pilih->nilai_perhitungan <= $kes_b) {
-                    $hasil = 'lolos';
+
+            if ($jurusan_pilih->program_studi_kode == 'soshum') {
+                foreach ($nilai_tryout as $key => $nilai_tryout) {
+                    if ($nilai_tryout->mapel_kode == 'k_penalaran_umum') {
+                        $k_penalaran_umum_eko_a = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_eko_b = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_sos_a = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_sos_b = 0.3*$nilai_tryout->skor;
+                        $k_penalaran_umum_bud_a = 0.2*$nilai_tryout->skor;
+                        $k_penalaran_umum_bud_b = 0.2*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'k_kuantitatif') {
+                        $k_kuantitatif_eko_a = 0.3*$nilai_tryout->skor;
+                        $k_kuantitatif_eko_b = 0.3*$nilai_tryout->skor;
+                        $k_kuantitatif_sos_a = 0.2*$nilai_tryout->skor;
+                        $k_kuantitatif_sos_b = 0.2*$nilai_tryout->skor;
+                        $k_kuantitatif_bud_a = 0.2*$nilai_tryout->skor;
+                        $k_kuantitatif_bud_b = 0.2*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'peng_dan_pemahaman_umum') {
+                        $peng_dan_pemahaman_umum_eko_a = 0.2*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_eko_b = 0.2*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_sos_a = 0.3*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_sos_b = 0.3*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_bud_a = 0.3*$nilai_tryout->skor;
+                        $peng_dan_pemahaman_umum_bud_b = 0.3*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'm_bacaan_dan_menulis') {
+                        $m_bacaan_dan_menulis_eko_a = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_eko_b = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_sos_a = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_sos_b = 0.2*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_bud_a = 0.3*$nilai_tryout->skor;
+                        $m_bacaan_dan_menulis_bud_b = 0.3*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'matematika') {
+                        $matematika_soshum_eko_a = 0.275*$nilai_tryout->skor;
+                        $matematika_soshum_eko_b = 0.35*$nilai_tryout->skor;
+                        $matematika_soshum_sos_a = 0.175*$nilai_tryout->skor;
+                        $matematika_soshum_sos_b = 0.175*$nilai_tryout->skor;
+                        $matematika_soshum_bud_a = 0.15*$nilai_tryout->skor;
+                        $matematika_soshum_bud_b = 0.15*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'geografi') {
+                        $geografi_eko_a = 0.125*$nilai_tryout->skor;
+                        $geografi_eko_b = 0.125*$nilai_tryout->skor;
+                        $geografi_sos_a = 0.125*$nilai_tryout->skor;
+                        $geografi_sos_b = 0.125*$nilai_tryout->skor;
+                        $geografi_bud_a = 0.175*$nilai_tryout->skor;
+                        $geografi_bud_b = 0.175*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'sejarah') {
+                        $sejarah_eko_a = 0.125*$nilai_tryout->skor;
+                        $sejarah_eko_b = 0.125*$nilai_tryout->skor;
+                        $sejarah_sos_a = 0.25*$nilai_tryout->skor;
+                        $sejarah_sos_b = 0.35*$nilai_tryout->skor;
+                        $sejarah_bud_a = 0.35*$nilai_tryout->skor;
+                        $sejarah_bud_b = 0.2*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'sosiologi') {
+                        $sosiologi_eko_a = 0.125*$nilai_tryout->skor;
+                        $sosiologi_eko_b = 0.125*$nilai_tryout->skor;
+                        $sosiologi_sos_a = 0.35*$nilai_tryout->skor;
+                        $sosiologi_sos_b = 0.25*$nilai_tryout->skor;
+                        $sosiologi_bud_a = 0.2*$nilai_tryout->skor;
+                        $sosiologi_bud_b = 0.35*$nilai_tryout->skor;
+                    }
+                    if ($nilai_tryout->mapel_kode == 'ekonomi') {
+                        $ekonomi_eko_a = 0.35*$nilai_tryout->skor;
+                        $ekonomi_eko_b = 0.275*$nilai_tryout->skor;
+                        $ekonomi_sos_a = 0.125*$nilai_tryout->skor;
+                        $ekonomi_sos_b = 0.125*$nilai_tryout->skor;
+                        $ekonomi_bud_a = 0.125*$nilai_tryout->skor;
+                        $ekonomi_bud_b = 0.125*$nilai_tryout->skor;
+                    }
                 }
-                else if ($jurusan_pilih->nilai_perhitungan > $kes_b) {
-                    $hasil = 'tidaklolos';
+                $eko_a = ($k_penalaran_umum_eko_a+$k_kuantitatif_eko_a+$peng_dan_pemahaman_umum_eko_a+$m_bacaan_dan_menulis_eko_a)*0.6+($matematika_soshum_eko_a+$geografi_eko_a+$sejarah_eko_a+$sosiologi_eko_a+$ekonomi_eko_a)*0.4;
+                $eko_b = ($k_penalaran_umum_eko_b+$k_kuantitatif_eko_b+$peng_dan_pemahaman_umum_eko_b+$m_bacaan_dan_menulis_eko_b)*0.6+($matematika_soshum_eko_b+$geografi_eko_b+$sejarah_eko_b+$sosiologi_eko_b+$ekonomi_eko_b)*0.4;
+                $sos_a = ($k_penalaran_umum_sos_a+$k_kuantitatif_sos_a+$peng_dan_pemahaman_umum_sos_a+$m_bacaan_dan_menulis_sos_a)*0.6+($matematika_soshum_sos_a+$geografi_sos_a+$sejarah_sos_a+$sosiologi_sos_a+$ekonomi_sos_a)*0.4;
+                $sos_b = ($k_penalaran_umum_sos_b+$k_kuantitatif_sos_b+$peng_dan_pemahaman_umum_sos_b+$m_bacaan_dan_menulis_sos_b)*0.6+($matematika_soshum_sos_b+$geografi_sos_b+$sejarah_sos_b+$sosiologi_sos_b+$ekonomi_sos_b)*0.4;
+                $bud_a = ($k_penalaran_umum_bud_a+$k_kuantitatif_bud_a+$peng_dan_pemahaman_umum_bud_a+$m_bacaan_dan_menulis_bud_a)*0.6+($matematika_soshum_bud_a+$geografi_bud_a+$sejarah_bud_a+$sosiologi_bud_a+$ekonomi_bud_a)*0.4;
+                $bud_b = ($k_penalaran_umum_bud_b+$k_kuantitatif_bud_b+$peng_dan_pemahaman_umum_bud_b+$m_bacaan_dan_menulis_bud_b)*0.6+($matematika_soshum_bud_b+$geografi_bud_b+$sejarah_bud_b+$sosiologi_bud_b+$ekonomi_bud_b)*0.4;
+
+                
+                if ($jurusan_pilih->cluster_kode == 'EKO-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $eko_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $eko_a) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-            }
-            if ($jurusan_pilih->cluster_kode == 'MIPA-A') {
-                if ($jurusan_pilih->nilai_perhitungan <= $mipa_a) {
-                    $hasil = 'lolos';
+                if ($jurusan_pilih->cluster_kode == 'EKO-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $eko_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $eko_b) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-                else if ($jurusan_pilih->nilai_perhitungan > $mipa_a) {
-                    $hasil = 'tidaklolos';
+                if ($jurusan_pilih->cluster_kode == 'SOS-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $sos_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $sos_a) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-            }
-            if ($jurusan_pilih->cluster_kode == 'MIPA-B') {
-                if ($jurusan_pilih->nilai_perhitungan <= $mipa_b) {
-                    $hasil = 'lolos';
+                if ($jurusan_pilih->cluster_kode == 'SOS-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $sos_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $sos_b) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-                else if ($jurusan_pilih->nilai_perhitungan > $mipa_b) {
-                    $hasil = 'tidaklolos';
+                if ($jurusan_pilih->cluster_kode == 'BUD-A') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $bud_a) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $bud_a) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-            }
-            if ($jurusan_pilih->cluster_kode == 'TEK-A') {
-                if ($jurusan_pilih->nilai_perhitungan <= $tek_a) {
-                    $hasil = 'lolos';
+                if ($jurusan_pilih->cluster_kode == 'BUD-B') {
+                    if ($jurusan_pilih->nilai_perhitungan <= $bud_b) {
+                        $hasil = 'lolos';
+                    }
+                    else if ($jurusan_pilih->nilai_perhitungan > $bud_b) {
+                        $hasil = 'tidaklolos';
+                    }
                 }
-                else if ($jurusan_pilih->nilai_perhitungan > $tek_a) {
-                    $hasil = 'tidaklolos';
+                if ($jurusan_pilih->cluster_kode == 'kosong') {
+                    $hasil = "cluster_kosong";
                 }
-            }
-            if ($jurusan_pilih->cluster_kode == 'TEK-B') {
-                if ($jurusan_pilih->nilai_perhitungan <= $tek_b) {
-                    $hasil = 'lolos';
-                }
-                else if ($jurusan_pilih->nilai_perhitungan > $tek_b) {
-                    $hasil = 'tidaklolos';
-                }
-            }
-            if ($jurusan_pilih->cluster_kode == 'TEK-C') {
-                if ($jurusan_pilih->nilai_perhitungan <= $tek_c) {
-                    $hasil = 'lolos';
-                }
-                else if ($jurusan_pilih->nilai_perhitungan > $tek_c) {
-                    $hasil = 'tidaklolos';
-                }
-            }
-            if ($jurusan_pilih->cluster_kode == 'kosong') {
-                $hasil = "cluster_kosong";
             }
         }
-        return $hasil;
 
         $simulasi = new SimulasiTryout;
         $simulasi->pilihan = $request['prioritas'];
@@ -363,6 +498,34 @@ class HasilTryoutSiswaController extends Controller
 
     public function rekomendasi($simulasi_id)
     {
+        return redirect()->back();
+        // belum selesai
+        $simulasi = DB::table('simulasi_tryouts')
+        ->join('jurusans','simulasi_tryouts.jurusan_kode','jurusans.kode')
+        ->join('pesertas','simulasi_tryouts.peserta_id','pesertas.id')
+        ->join('nilai_tryouts','pesertas.id','nilai_tryouts.peserta_id')
+        ->select('simulasi_tryouts.pilihan','jurusans.program_studi_kode as program_studi', 'nilai_tryouts.*')
+        ->where('simulasi_tryouts.id','=',$simulasi_id)
+        ->get();
+
+        $rekomendasi = PerhitunganController::rekomendasiTryout($simulasi);
+        return $rekomendasi;
+
+        foreach ($rekomendasi as $key => $rekomendasi) {
+            $saran_manual = new SaranManual;
+            $saran_manual->prioritas = $rekomendasi->prioritas;
+            $saran_manual->simulasi_manual_id = $simulasi_id;
+            $saran_manual->jurusan_kode = $rekomendasi->kode;
+            $saran_manual->save();
+        }
+
+        $simulasi_manual = Simulasi::find($simulasi_id);
+        $simulasi_manual->hasil = 'tidaklolos_terekomendasi';
+        $simulasi_manual->save();
+
+        Alert::success('Success', 'Berhasil Menambah Data');
+        return redirect('simulasi');
+        
         $simulasi = SimulasiTryout::find($simulasi_id);
         $simulasis = DB::table('simulasi_tryouts')
         ->join('jurusans','simulasi_tryouts.jurusan_kode','jurusans.kode')

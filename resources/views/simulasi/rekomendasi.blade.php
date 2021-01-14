@@ -22,6 +22,8 @@
             <tr>
               <th>Universitas</th>
               <th>Jurusan</th>
+              <th>Nilai Perhitungan</th>
+              <th>Kuota - Tahun</th>
               <th>Prioritas</th>
             </tr>
             </thead>
@@ -29,8 +31,10 @@
             @foreach ($rekomendasi as $key => $rekomendasi)
             <tr>
               <td>{{ $rekomendasi->universitas }}</td>
-                <td>{{ $rekomendasi->nama }}</td>
-                <td>{{ $rekomendasi->prioritas }}</td>
+              <td>{{ $rekomendasi->nama }}</td>
+              <td>{{ $rekomendasi->nilai_perhitungan }}</td>
+              <td>{{ $rekomendasi->kuota.' - '.$rekomendasi->tahun }}</td>
+              <td>{{ $rekomendasi->prioritas }}</td>
             </tr>
             @endforeach
             </tbody>
@@ -38,6 +42,8 @@
               <tr>
                 <th>Universitas</th>
                 <th>Jurusan</th>
+                <th>Nilai Perhitungan</th>
+                <th>Kuota - Tahun</th>
                 <th>Prioritas</th>
               </tr>
             </tfoot>

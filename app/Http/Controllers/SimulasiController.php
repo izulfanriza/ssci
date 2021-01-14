@@ -274,22 +274,8 @@ class SimulasiController extends Controller
 
         elseif ($thisUser->role == 'siswapremium') {
             $simulasi = Simulasi::find($simulasi_id);
-            // $simulasis = DB::table('simulasi_manuals')
-            // ->join('jurusans','simulasi_manuals.jurusan_kode','jurusans.kode')
-            // ->join('universitas','jurusans.universitas_kode','universitas.kode')
-            // ->select('simulasi_manuals.*','jurusans.nama as nama_jurusan', 'universitas.nama as nama_universitas')
-            // ->where('simulasi_manuals.id','=',$simulasi_id)
-            // ->get();
-            // $jurusan = DB::table('jurusans')
-            // ->join('universitas','jurusans.universitas_kode','universitas.kode')
-            // ->select('jurusans.*', 'universitas.nama as nama_universitas')
-            // ->where('jurusans.kode','=',$simulasi->jurusan_kode)
-            // ->get();
-            // $user = User::find($simulasi->user_id);
-
             $rekomendasi = PerhitunganController::rekomendasi($simulasi);
 
-            // return $rekomendasi;
             foreach ($rekomendasi as $key => $rekomendasi) {
                 $saran_manual = new SaranManual;
                 $saran_manual->prioritas = $rekomendasi->prioritas;
@@ -301,25 +287,7 @@ class SimulasiController extends Controller
             $simulasi_manual = Simulasi::find($simulasi_id);
             $simulasi_manual->hasil = 'tidaklolos_terekomendasi';
             $simulasi_manual->save();
-            // $tryout = DB::table('tryouts')
-            // ->join('pesertas','tryouts.kode','pesertas.tryout_kode')
-            // ->select('tryouts.*', 'pesertas.id as id_peserta', 'pesertas.nama as nama_peserta', 'pesertas.nomor as nomor_peserta', 'pesertas.skor_tka', 'pesertas.rank_tka', 'pesertas.skor_tps', 'pesertas.rank_tps')
-            // ->where('pesertas.id','=',$simulasi->peserta_id)
-            // ->get();
-            // $rekomendasis = DB::table('jurusans')
-            // ->join('universitas','jurusans.universitas_kode','universitas.kode')
-            // ->select('jurusans.prioritas', 'jurusans.nama as nama_jurusan', 'universitas.nama as nama_universitas')
-            // ->where('jurusans.nilai_perhitungan','<=',$sbmptn6040)
-            // ->where('jurusans.cluster_kode','=',$jurusan->cluster_kode)
-            // ->where('jurusans.program_studi_kode','=',$jurusan->program_studi_kode)
-            // ->where('jurusans.prioritas','=',$jurusan->prioritas)
-            // ->get();
 
-            // return view('hasiltryoutsiswa.rekomendasi',array())
-            // ->with('tryout',$tryout)
-            // ->with('simulasi',$simulasi)
-            // ->with('simulasis',$simulasis)
-            // ->with('rekomendasi',$rekomendasi);
             Alert::success('Success', 'Berhasil Menambah Data');
             return redirect('simulasi');
         }
